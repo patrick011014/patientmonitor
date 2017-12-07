@@ -41,7 +41,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
             <ul class="templatemo-submenu">
               <li><a href="#">Aenean</a></li>
               <li><a href="#">Pellentesque</a></li>
-              <li><a href="#">Congue</a></li>             
+              <li><a href="#">Congue</a></li>
               <li><a href="#">Interdum</a></li>
               <li><a href="#">Facilisi</a></li>
             </ul>

@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
+Route::any('/admin', function () {
+    return view('index');
+});
+
+Route::any('/admin', function () {
+    return view('index');
+});
+
+Route::any('/admin', function () {
     return view('index');
 });
