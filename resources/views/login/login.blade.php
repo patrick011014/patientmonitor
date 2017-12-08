@@ -8,12 +8,13 @@
 	<!-- <link href="css/templatemo_style.css" rel="stylesheet" type="text/css">	 -->
 	<link rel="stylesheet" type="text/css" href="/assets/login/css/templatemo_style.css">
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
-
-	<link rel="stylesheet" type="text/css" href="/assets/toaster/toastr.css">
-	
 	<script type="text/javascript" src="/assets/login/js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="/assets/login/js/login.js?v=3"></script>
-    <script type="text/javascript" src="/assets/toaster/toastr.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/assets/toaster/toastr.css?v=1">
+    <script type="text/javascript" src="/assets/toaster/toastr.min.js?v=1"></script>
+	
+	
 
 
 </head>
