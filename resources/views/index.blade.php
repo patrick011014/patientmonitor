@@ -33,7 +33,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
               <span class="btn btn-default">Go</span>
             </form>
           </li>
-          <li class="active"><a href="#"><i class="fa fa-home"></i>Dashboard</a></li>
+          <li class="active"><a href="/admin"><i class="fa fa-home"></i>Dashboard</a></li>
           <li class="sub open">
             <a href="javascript:;">
               <i class="fa fa-database"></i> Nested Menu <div class="pull-right"><span class="caret"></span></div>
@@ -46,10 +46,10 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
               <li><a href="#">Facilisi</a></li>
             </ul>
           </li>
-          <li><a href="data-visualization.html"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Data Visualization</a></li>
-          <li><a href="maps.html"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>Maps</a></li>
-          <li><a href="tables.html"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Manage Users</a></li>
-          <li><a href="preferences.html"><i class="fa fa-cog"></i>Preferences</a></li>
+          <li><a href="/data_visualization"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Data Visualization</a></li>
+          <li><a href="/maps"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>asdadsa</a></li>
+          <li><a href="/tables"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Manage Users</a></li>
+          <li><a href="/preferences"><i class="fa fa-cog"></i>Preferences</a></li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
         </ul>
       </div><!--/.navbar-collapse -->

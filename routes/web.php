@@ -15,14 +15,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::any('/admin', function () {
-    return view('index');
+Route::any('/admin','admincontroller@index');
+
+Route::any('/data_visualization', function () {
+    return view('data-visualization');
 });
 
-Route::any('/admin', function () {
-    return view('index');
+Route::any('/tables', function () {
+    return view('tables');
 });
 
-Route::any('/admin', function () {
-    return view('index');
+Route::any('/maps', function () {
+    return view('maps');
 });
+Route::any('/preferences', function () {
+    return view('preferences');
+});
+
+
+
