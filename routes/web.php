@@ -15,6 +15,8 @@ Route::get('/','LoginController@index');
 
 Route::any('/admin','admincontroller@index');
 
+Route::any('/dashboard','admincontroller@dashboard');
+
 Route::any('/data_visualization', function () {
     return view('data-visualization');
 });

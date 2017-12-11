@@ -7,6 +7,7 @@
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">        
   <link rel="stylesheet" href="/assets/layoutdashboard/css/templatemo_main.css">
+   @yield('css')
 <!-- 
 Dashboard Template 
 http://www.templatemo.com/preview/templatemo_415_dashboard
@@ -83,6 +84,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     <script src="/assets/layoutdashboard/js/bootstrap.min.js"></script>
     <script src="/assets/layoutdashboard/js/Chart.min.js"></script>
     <script src="/assets/layoutdashboard/js/templatemo_script.js"></script>
+    @yield('scripts')
     <script type="text/javascript">
     // Line chart
     var randomScalingFactor = function(){ return Math.round(Math.random()*100)};

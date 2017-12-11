@@ -13,4 +13,8 @@ class admincontroller extends BaseController
     {
     	return view('index');
     }
+    public function dashboard()
+    {
+    	return view('dashboard');
+    }
 }
