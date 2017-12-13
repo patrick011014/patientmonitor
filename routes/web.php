@@ -12,25 +12,19 @@
 */
 
 Route::get('/','LoginController@index');
+Route::any('/login','LoginController@login');
+Route::any('/logout','LoginController@logout');
 
-Route::any('/admin','admincontroller@index');
+Route::any('/admin/dashboard','Admin\AdminController@dashboard');
+Route::any('/admin/employee_list','Admin\AdminController@dashboard');
+Route::any('/admin/employee_approver','Admin\AdminController@dashboard');
 
-Route::any('/dashboard','admincontroller@dashboard');
 
-Route::any('/data_visualization', function () {
-    return view('data-visualization');
-});
-
-Route::any('/tables', function () {
-    return view('tables');
-});
-
-Route::any('/maps', function () {
-    return view('maps');
-});
-Route::any('/preferences', function () {
-    return view('preferences');
-});
+Route::any('/employee/dashboard','Employee\EmployeeController@dashboard');
+Route::any('/employee/profile_information','Employee\EmployeeController@profile_information');
+Route::any('/employee/company_information','Employee\EmployeeController@company_information');
+Route::any('/employee/leave_request','Employee\EmployeeController@leave_request');
+Route::any('/employee/leave_approver','Employee\EmployeeController@leave_approver');
 
 
 

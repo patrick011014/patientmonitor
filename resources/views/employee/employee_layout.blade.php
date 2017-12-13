@@ -34,23 +34,11 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
               <span class="btn btn-default">Go</span>
             </form>
           </li>
-          <li class="active"><a href="/admin"><i class="fa fa-home"></i>Dashboard</a></li>
-          <li class="sub open">
-            <a href="javascript:;">
-              <i class="fa fa-database"></i> Nested Menu <div class="pull-right"><span class="caret"></span></div>
-            </a>
-            <ul class="templatemo-submenu">
-              <li><a href="#">Aenean</a></li>
-              <li><a href="#">Pellentesque</a></li>
-              <li><a href="#">Congue</a></li>
-              <li><a href="#">Interdum</a></li>
-              <li><a href="#">Facilisi</a></li>
-            </ul>
-          </li>
-          <li><a href="/data_visualization"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Data Visualization</a></li>
-          <li><a href="/maps"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>asdadsa</a></li>
-          <li><a href="/tables"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Manage Users</a></li>
-          <li><a href="/preferences"><i class="fa fa-cog"></i>Preferences</a></li>
+          <li class="active"><a href="/employee/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
+          <li><a href="/employee/profile_information"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Profile Information</a></li>
+          <li><a href="/employee/company_information"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>Company Information</a></li>
+          <li><a href="/employee/leave_request"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Leave Request</a></li>
+          <li><a href="/employee/leave_approver"><i class="fa fa-cog"></i>Leave Approver</a></li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
         </ul>
       </div><!--/.navbar-collapse -->
@@ -67,7 +55,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
               <h4 class="modal-title" id="myModalLabel">Are you sure you want to sign out?</h4>
             </div>
             <div class="modal-footer">
-              <a href="sign-in.html" class="btn btn-primary">Yes</a>
+              <a href="/logout" class="btn btn-primary">Yes</a>
               <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
             </div>
           </div>
