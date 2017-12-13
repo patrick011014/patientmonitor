@@ -23,8 +23,8 @@
 		<div class="col-md-12">
 			<h1 class="login-title">Login as Employer</h1>
 			<form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" role="form" action="/login" method="post">
+	        	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	        	<div class="form-group">
-	        		{{ csrf_field() }}
 		        	<ul class="nav nav-tabs">
 				        <li class="active change-tab pending-tab cursor-pointer" mode="pending"><a class="cursor-pointer"><i class="fa fa-user"></i> Employer</a></li>
 				        <li class="cursor-pointer change-tab approve-tab" mode="approved"><a class="cursor-pointer"><i class="fa fa-users"></i> Employee</a></li>
@@ -42,7 +42,7 @@
 		          <div class="col-md-12">
 		          	<div class="control-wrapper">
 		            	<label for="password" class="control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
-		            	<input name="pass" type="password" class="form-control" id="password" placeholder="Password">
+		            	<input name="password" type="password" class="form-control" id="password" placeholder="Password">
 		            </div>
 		          </div>
 		        </div>

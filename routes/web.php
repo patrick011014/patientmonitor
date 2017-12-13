@@ -12,8 +12,17 @@
 */
 
 Route::get('/','LoginController@index');
-Route::post('/login','LoginController@login');
 
-Route::get('/admin', function () {
-    return view('index');
-});
+Route::any('/login','LoginController@login');
+Route::any('/logout','LoginController@logout');
+
+Route::any('/admin/dashboard','Admin\AdminController@dashboard');
+Route::any('/admin/employee_list','Admin\AdminController@dashboard');
+Route::any('/admin/employee_approver','Admin\AdminController@dashboard');
+
+
+Route::any('/employee/dashboard','Employee\EmployeeController@dashboard');
+Route::any('/employee/profile_information','Employee\EmployeeController@profile_information');
+Route::any('/employee/company_information','Employee\EmployeeController@company_information');
+Route::any('/employee/leave_request','Employee\EmployeeController@leave_request');
+Route::any('/employee/leave_approver','Employee\EmployeeController@leave_approver');
