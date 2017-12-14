@@ -18,7 +18,6 @@ class LoginController extends Controller
 {
     public function index()
     {
-
     	$data['page'] = "Login";
     	return view('login.login',$data);
     }
