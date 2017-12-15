@@ -8,7 +8,6 @@ function login()
 	{
 		$(document).ready(function()
 		{
-			toastr.success('login');
 			document_ready();
 		});
 	}

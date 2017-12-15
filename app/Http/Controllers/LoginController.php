@@ -28,7 +28,7 @@ class LoginController extends Controller
     	$email      = $request->email;
         $password   = $request->password;
 
-        $employee_info  = Tbl_employee_info::where('employee_email',$email)->where('employee_tin',$password)->first();
+        $employee_info  = Tbl_employee_info::where('employee_email',$email)->where('password',$password)->first();
         
         if ($employee_info) 
         {
@@ -44,7 +44,7 @@ class LoginController extends Controller
         }
         else
         {
-            return Redirect::to("/");
+            return Redirect::back()->with('response','error');
         }
     }
 

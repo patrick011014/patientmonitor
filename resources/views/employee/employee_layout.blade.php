@@ -2,11 +2,19 @@
 <head>
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>Dashboard, Free HTML5 Admin Template</title>
+  <title>sgsco</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">        
   <link rel="stylesheet" href="/assets/layoutdashboard/css/templatemo_main.css">
+
+  <link href="/assets/login/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/login/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/login/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="/assets/login/css/templatemo_style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/toaster/toastr.css?v=1">
+
+  
    @yield('css')
 <!-- 
 Dashboard Template 
@@ -16,7 +24,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
 <body>
   <div class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
-        <div class="logo"><h1>Dashboard - Admin Template</h1></div>
+        <div class="logo"><h1>SGSCO.HRIS</h1></div>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -35,9 +43,9 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
             </form>
           </li>
           <li class="active"><a href="/employee/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
-          <li><a href="/employee/profile_information"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Profile Information</a></li>
-          <li><a href="/employee/company_information"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>Company Information</a></li>
-          <li><a href="/employee/leave_request"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Leave Request</a></li>
+          <li><a href="/employee/profile_information"><i class="fa fa-cubes"></i>Profile Information</a></li>
+          <li><a href="/employee/company_information"><i class="fa fa-map-marker"></i>Company Information</a></li>
+          <li><a href="/employee/leave_request"><i class="fa fa-envelope"></i>Request Leave</a></li>
           <li><a href="/employee/leave_approver"><i class="fa fa-cog"></i>Leave Approver</a></li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
         </ul>
@@ -72,6 +80,8 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     <script src="/assets/layoutdashboard/js/bootstrap.min.js"></script>
     <script src="/assets/layoutdashboard/js/Chart.min.js"></script>
     <script src="/assets/layoutdashboard/js/templatemo_script.js"></script>
+    <script type="text/javascript" src="/assets/toaster/toastr.min.js?v=1"></script>
+
     @yield('scripts')
     <script type="text/javascript">
     // Line chart
