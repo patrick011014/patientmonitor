@@ -2,11 +2,12 @@
 <head>
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>Dashboard, Free HTML5 Admin Template</title>
+  <title>SGSCO</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">        
   <link rel="stylesheet" href="/assets/layoutdashboard/css/templatemo_main.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    @yield('css')
 <!-- 
 Dashboard Template 
@@ -16,7 +17,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
 <body>
   <div class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
-        <div class="logo"><h1>Dashboard - Admin Template</h1></div>
+        <div class="logo"><h1>Dashboard - {{Session::get('user_level')}}</h1></div>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -34,10 +35,19 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
               <span class="btn btn-default">Go</span>
             </form>
           </li>
-          <li class="{{Request::segment(2) == 'dashboard' ? = 'active' : ''}}"><a href="/admin/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
-          <li class="{{Request::segment(2) == 'employee_list' ? = 'active' : ''}}"><a href="/admin/employee_list"><i class="fa fa-cubes"></i>Employee List</a></li>
-          <li class="{{Request::segment(2) == 'employee_approver' ? = 'active' : ''}}"><a href="/admin/employee_approver"><i class="fa fa-map-marker"></i>Employee Approver</a></li>
+          @if(Session::get('user_level') == 'admin')
+          <li class="{{Request::segment(2) == 'dashboard' ? 'active' : ''}}"><a href="/admin/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
+          <li class="{{Request::segment(2) == 'employee_list' ? 'active' : ''}}"><a href="/admin/employee_list"><i class="fa fa-cubes"></i>Employee List</a></li>
+          <li class="{{Request::segment(2) == 'employee_approver' ? 'active' : ''}}"><a href="/admin/employee_approver"><i class="fa fa-map-marker"></i>Employee Approver</a></li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+          @else
+          <li class="{{Request::segment(2) == 'dashboard' ? 'active' : ''}}"><a href="/employee/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
+          <li class="{{Request::segment(2) == 'profile_information' ? 'active' : ''}}"><a href="/employee/profile_information"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Profile Information</a></li>
+          <li class="{{Request::segment(2) == 'company_information' ? 'active' : ''}}"><a href="/employee/company_information"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>Company Information</a></li>
+          <li class="{{Request::segment(2) == 'leave_request' ? 'active' : ''}}"><a href="/employee/leave_request"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Leave Request</a></li>
+          <li class="{{Request::segment(2) == 'leave_approver' ? 'active' : ''}}"><a href="/employee/leave_approver"><i class="fa fa-cog"></i>Leave Approver</a></li>
+          <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+          @endif
         </ul>
       </div><!--/.navbar-collapse -->
 
@@ -59,6 +69,19 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
           </div>
         </div>
       </div>
+
+      <div id="global_modal" class="modal fade" role="dialog" >
+          <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content modal-content-global">
+              </div>
+          </div>
+      </div>
+      <!-- END GLOBAL MODAL -->
+      <!-- GLOBAL MULTIPLE MODAL -->
+      <div class="multiple_global_modal_container"></div>
+      <!-- END GLOBAL MULTIPLE MODAL -->
+
       <footer class="templatemo-footer">
         <div class="templatemo-copyright">
           <p>Copyright &copy; 2084 Your Company Name</p>
@@ -70,6 +93,14 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     <script src="/assets/layoutdashboard/js/bootstrap.min.js"></script>
     <script src="/assets/layoutdashboard/js/Chart.min.js"></script>
     <script src="/assets/layoutdashboard/js/templatemo_script.js"></script>
+    
+    <-- start global js -->
+    <script src="/assets/layoutdashboard/global.js"></script>
+    <-- end global  js-->
+
+    <-- start datetimepicker ui js -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <-- end datetimepicker ui js -->
     @yield('scripts')
     <script type="text/javascript">
     // Line chart
@@ -101,12 +132,12 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
 
     }
 
-    window.onload = function(){
-      var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
-      window.myLine = new Chart(ctx_line).Line(lineChartData, {
-        responsive: true
-      });
-    };
+    // window.onload = function(){
+    //   var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
+    //   window.myLine = new Chart(ctx_line).Line(lineChartData, {
+    //     responsive: true
+    //   });
+    // };
 
     $('#myTab a').click(function (e) {
       e.preventDefault();

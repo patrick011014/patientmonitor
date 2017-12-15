@@ -29,19 +29,22 @@ class LoginController extends Controller
         $password   = $request->password;
 
         $employee_info  = Tbl_employee_info::where('employee_email',$email)->where('employee_tin',$password)->first();
-        
-        if ($employee_info) 
+        if($email == 'admin' && $password == 'admin')
         {
-            
-            Session::put('employee_email',$email);
-            Session::put('employee_password',$password);
-           
-            return Redirect::to("/employee/dashboard");
-        }
-        else if($email == 'admin' && $password == 'admin')
-        {
+             Session::put('user_level','admin');
+             Session::put('employee_email','admin');
+             Session::put('employee_password','admin');
              return Redirect::to("/admin/dashboard");
         }
+        else if ($employee_info) 
+        {
+            Session::put('user_level','employee');
+            Session::put('employee_email',$email);
+            Session::put('employee_password',$password);
+            
+            return Redirect::to("/employee/dashboard");
+        }
+        
         else
         {
             return Redirect::to("/");
@@ -53,6 +56,7 @@ class LoginController extends Controller
     {
         Session::forget('employee_email');
         Session::forget('employee_password');
+        Session::forget('user_level');
         
         return Redirect::to("/");
     }

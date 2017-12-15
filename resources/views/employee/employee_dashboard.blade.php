@@ -1,4 +1,4 @@
-@extends('employee.employee_layout')
+@extends('layout')
 @section('content')
 <div class="templatemo-content-wrapper">
   <div class="templatemo-content">
@@ -15,6 +15,7 @@
     <div class=" panel panel-default panel-block panel-title-block" >
       <div class="panel-body form-horizontal">
         Hello Employee
+        <button class="btn btn-primary popup" link="/" size="md"></button>
       </div>
     </div>
   </div>
