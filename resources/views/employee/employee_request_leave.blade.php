@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-<div class="panel panel-default panel-block panel-title-block panel-gray "  style="height:100%;margin-bottom: -10px;">
+    <div class="panel panel-default panel-block panel-title-block panel-gray "  style="height:100%;margin-bottom: -10px;">
     <ul class="nav nav-tabs">
         <li class="active change-tab pending-tab cursor-pointer" mode="pending"><a class="cursor-pointer"><i class="fa fa-check-circle-o"></i> Approved</a></li>
         <li class="cursor-pointer change-tab approve-tab" mode="approved"><a class="cursor-pointer"><i class="fa fa-spinner fa-spin fa-fw"></i> Pending</a></li>
