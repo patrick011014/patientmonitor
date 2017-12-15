@@ -94,13 +94,13 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     <script src="/assets/layoutdashboard/js/Chart.min.js"></script>
     <script src="/assets/layoutdashboard/js/templatemo_script.js"></script>
     
-    <-- start global js -->
+    <!-- start global js -->
     <script src="/assets/layoutdashboard/global.js"></script>
-    <-- end global  js-->
+    <!-- end global  js-->
 
-    <-- start datetimepicker ui js -->
+    <!-- start datetimepicker ui js -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <-- end datetimepicker ui js -->
+    <!-- end datetimepicker ui js -->
     @yield('scripts')
     <script type="text/javascript">
     // Line chart
