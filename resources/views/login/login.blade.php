@@ -63,3 +63,8 @@
 	</div>
 </body>
 </html>
+<script type="text/javascript">
+	@if(Session::get("response")=='error')
+	toastr.error("Invalid email or password");
+	@endif
+</script>

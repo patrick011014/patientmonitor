@@ -2,12 +2,17 @@
 <head>
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>SGSCO</title>
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width">        
+  <title>SGSCO</title>      
   <link rel="stylesheet" href="/assets/layoutdashboard/css/templatemo_main.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link href="/assets/login/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/login/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/login/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" type="text/css" href="/assets/login/css/templatemo_style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/toaster/toastr.css?v=1">
+
+
    @yield('css')
 <!-- 
 Dashboard Template 
@@ -17,7 +22,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
 <body>
   <div class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
-        <div class="logo"><h1>Dashboard - {{Session::get('user_level')}}</h1></div>
+        <div class="logo"><h1>SGSCO.HRIS</h1></div>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -93,6 +98,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     <script src="/assets/layoutdashboard/js/bootstrap.min.js"></script>
     <script src="/assets/layoutdashboard/js/Chart.min.js"></script>
     <script src="/assets/layoutdashboard/js/templatemo_script.js"></script>
+    <script type="text/javascript" src="/assets/toaster/toastr.min.js?v=1"></script>
     
     <!-- start global js -->
     <script src="/assets/layoutdashboard/global.js"></script>

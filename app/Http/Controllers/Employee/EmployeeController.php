@@ -17,6 +17,8 @@ use Crypt;
 use Session;
 use DB;
 
+use App\Models\Tbl_employee_info;
+
 class EmployeeController extends Member
 {
     public function dashboard(Request $request)
@@ -36,7 +38,9 @@ class EmployeeController extends Member
 
     public function leave_request()
     {
-    	return view('employee.employee_dashboard');
+        $data['page'] = 'Request Leave';
+        $data['request'] = Tbl_employee_info::get();
+    	return view('employee.employee_request_leave',$data);
     }
 
     public function leave_approver()

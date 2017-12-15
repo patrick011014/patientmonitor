@@ -12,6 +12,7 @@
 */
 
 Route::get('/','LoginController@index');
+
 Route::any('/login','LoginController@login');
 Route::any('/logout','LoginController@logout');
 
@@ -28,7 +29,4 @@ Route::any('/employee/profile_information','Employee\EmployeeController@profile_
 Route::any('/employee/company_information','Employee\EmployeeController@company_information');
 Route::any('/employee/leave_request','Employee\EmployeeController@leave_request');
 Route::any('/employee/leave_approver','Employee\EmployeeController@leave_approver');
-
-
-
 
