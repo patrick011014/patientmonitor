@@ -1,4 +1,4 @@
-@extends('employee.employee_layout')
+@extends('layout')
 @section('content')
 <div class="templatemo-content-wrapper">
   <div class="templatemo-content">

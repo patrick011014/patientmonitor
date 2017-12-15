@@ -8,12 +8,20 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
+
+use Redirect;
+use Validator;
+use Carbon\Carbon;
+use Crypt;
+use Session;
+use DB;
 
 use App\Models\Tbl_employee_info;
 
 class EmployeeController extends Member
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
     	return view('employee.employee_dashboard');
     }

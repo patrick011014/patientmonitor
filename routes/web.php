@@ -17,8 +17,11 @@ Route::any('/login','LoginController@login');
 Route::any('/logout','LoginController@logout');
 
 Route::any('/admin/dashboard','Admin\AdminController@dashboard');
-Route::any('/admin/employee_list','Admin\AdminController@dashboard');
-Route::any('/admin/employee_approver','Admin\AdminController@dashboard');
+Route::any('/admin/employee_list','Admin\AdminController@employee_list');
+Route::any('/admin/employee_approver','Admin\AdminController@employee_approver');
+Route::any('/admin/sample_modal','Admin\AdminController@sample_modal');
+Route::any('/admin/modal_create_employee','Admin\AdminController@modal_create_employee');
+
 
 
 Route::any('/employee/dashboard','Employee\EmployeeController@dashboard');
@@ -26,3 +29,4 @@ Route::any('/employee/profile_information','Employee\EmployeeController@profile_
 Route::any('/employee/company_information','Employee\EmployeeController@company_information');
 Route::any('/employee/leave_request','Employee\EmployeeController@leave_request');
 Route::any('/employee/leave_approver','Employee\EmployeeController@leave_approver');
+
