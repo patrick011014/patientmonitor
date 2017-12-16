@@ -16,8 +16,8 @@ class CreateTblLeaveRequest extends Migration
         Schema::create('tbl_leave_request', function (Blueprint $table) {
             $table->increments('leave_request_id');
             $table->integer('employee_id');
-            $table->dateTime("date_from");
-            $table->dateTime("date_to");
+            $table->date("date_from");
+            $table->date("date_to");
             $table->text('reason');
         });
     }

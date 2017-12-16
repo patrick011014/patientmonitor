@@ -35,7 +35,7 @@ class Member extends BaseController
 			{
 				$employee_email 	= session('employee_email');
 				$employee_password	= session('employee_password');
-				$employee_info	= Tbl_employee_info::where('employee_email',$employee_email)->where('employee_tin',$employee_password)->first();
+				$employee_info	= Tbl_employee_info::where('employee_email',$employee_email)->where('password',$employee_password)->first();
 				$this->employee_info = $employee_info;
 			}
 
