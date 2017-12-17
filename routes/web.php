@@ -34,6 +34,9 @@ Route::get('/employee/leave_request_table','Employee\EmployeeController@leave_re
 Route::get('/employee/leave_request_add','Employee\EmployeeController@add_request_leave');
 Route::post('/employee/leave_request_add','Employee\EmployeeController@submit_request_leave');
 
+//respond to email - patrick
+Route::get('/respond_to_request/approve','Email\EmailController@approve');
+Route::get('/respond_to_request/reject','Email\EmailController@reject');
 
 Route::any('/employee/leave_approver','Employee\EmployeeController@leave_approver');
 

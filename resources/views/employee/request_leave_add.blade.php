@@ -34,7 +34,7 @@
 <script type="text/javascript">
 	function success(data)
 	{
-		toastr.success("submitted");
+		toastr.success("Request Send");
     	data.element.modal("hide");
 	}
 	function error(data)

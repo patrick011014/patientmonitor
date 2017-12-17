@@ -56,6 +56,7 @@ class EmployeeController extends Member
     public function add_request_leave()
     {
         $data['page'] = "Request Leave";
+        // Tbl_approvers::where
         return view('employee.request_leave_add',$data);
     }
     public function submit_request_leave(Request $request)
@@ -73,8 +74,6 @@ class EmployeeController extends Member
 
         $id = Tbl_leave_request::insertGetId($request_leave);
 
-        $crypt_id = Crypt::encrypt($id);
-
         // approver details
         $eid = 1;
         $recipient_name = 'John Patrick Manarang';
@@ -88,7 +87,8 @@ class EmployeeController extends Member
         $email_data['date_from'] = $request->date_from;
         $email_data['date_to'] = $request->date_to;
         $email_data['reason'] = $request->reason;
-        $email_data['link'] = 'sgsco.test/respond_to_request?rid='.$crypt_id.'&tag=approver1&eid='.$eid;
+        $email_data['domain'] = 'sgsco.test';
+        $email_data['link'] = 'rid='.$id.'&tag=approver1&eid='.$eid;
 
         $this->send_email($email_data);
         $response['call_function'] = 'success';
@@ -99,7 +99,7 @@ class EmployeeController extends Member
     {
         Mail::send('emails.request_leave',$data, function($message) use ($data)
         {
-            $message->from($data["from"], "SGSCO.HRIS");
+            $message->from('sgsco.hris@gmail.com', "SGSCO.HRIS");
             $message->subject($data['subject']." - ".$data['sender_name']);
             $message->to($data["to"]);
         });

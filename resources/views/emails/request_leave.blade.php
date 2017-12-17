@@ -35,22 +35,32 @@ div
 {
 	margin-left: 100px;
 }
-a
-{
 
-}
-.respond 
+.approve 
 {
 	border: none; /* Remove borders */
     color: white; /* Add a text color */
     padding: 14px 28px; /* Add some padding */
     cursor: pointer; /* Add a pointer cursor on mouse-over */
-	background-color: #f39c12;
+	background-color: #2ecc71;
 	border-radius: 3px;
 }
-.respond:hover 
+.approve:hover 
 {
-	background: #e68a00;
+	background: #27ae60;
+}
+.reject 
+{
+	border: none; /* Remove borders */
+    color: white; /* Add a text color */
+    padding: 14px 28px; /* Add some padding */
+    cursor: pointer; /* Add a pointer cursor on mouse-over */
+	background-color: #e74c3c;
+	border-radius: 3px;
+}
+.reject:hover 
+{
+	background: #c0392b;
 }
 </style>
 
@@ -79,7 +89,8 @@ a
 				{{$sender_name}}
 				</h4>
 			</div>
-			<a target="_blank" href="{{$link}}" ><button class="respond">Respond</button></a>
+			<a target="_blank" href="{{$domain}}/respond_to_request/approve?{{$link}}" ><button class="approve">Approve</button></a>
+			<a target="_blank" href="{{$domain}}/respond_to_request/reject?{{$link}}" ><button class="reject">Reject</button></a>
 			</center>
 		</div>
 	</div>

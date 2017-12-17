@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>SGSCO</title>      
+  <title>sgsco</title>      
   <link rel="stylesheet" href="/assets/layoutdashboard/css/templatemo_main.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="/assets/login/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -47,10 +47,10 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
           @else
           <li class="{{Request::segment(2) == 'dashboard' ? 'active' : ''}}"><a href="/employee/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
-          <li class="{{Request::segment(2) == 'profile_information' ? 'active' : ''}}"><a href="/employee/profile_information"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Profile Information</a></li>
-          <li class="{{Request::segment(2) == 'company_information' ? 'active' : ''}}"><a href="/employee/company_information"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>Company Information</a></li>
-          <li class="{{Request::segment(2) == 'leave_request' ? 'active' : ''}}"><a href="/employee/leave_request"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Leave Request</a></li>
-          <li class="{{Request::segment(2) == 'leave_approver' ? 'active' : ''}}"><a href="/employee/leave_approver"><i class="fa fa-cog"></i>Leave Approver</a></li>
+          <li class="{{Request::segment(2) == 'profile_information' ? 'active' : ''}}"><a href="/employee/profile_information"><i class="fa fa-user"></i>Profile</a></li>
+          <li class="{{Request::segment(2) == 'company_information' ? 'active' : ''}}"><a href="/employee/company_information"><i class="fa fa-map-marker"></i>Company Information</a></li>
+          <li class="{{Request::segment(2) == 'leave_request' ? 'active' : ''}}"><a href="/employee/leave_request"><i class="fa fa-users"></i>Leave Request</a></li>
+          <li class="{{Request::segment(2) == 'leave_approver' ? 'active' : ''}}"><a href="/employee/leave_approver"><i class="fa fa-cog"></i>Account Setting</a></li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
           @endif
         </ul>
