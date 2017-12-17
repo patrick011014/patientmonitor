@@ -14,7 +14,7 @@ class UpdateTblApprovers1217170831am extends Migration
     public function up()
     {
         Schema::table('tbl_approvers', function (Blueprint $table) {
-            //
+            $table->integer('approver_employee_id');
         });
     }
 

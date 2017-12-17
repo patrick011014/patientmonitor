@@ -26,8 +26,8 @@
 
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-def-white btn-custom-white" data-dismiss="modal">Close</button>
-		<button class="btn btn-primary btn-custom-primary" type="submit">Submit</button>
+		<button type="button" class="btn btn-danger btn-custom-white" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		<button class="btn btn-primary btn-custom-primary" type="submit"><i class="fa fa-share-square-o" aria-hidden="true"></i> Submit</button>
 	</div>
 </form>
 

@@ -16,6 +16,7 @@ function request_leave()
 		action_load_table();
 		event_change_tab();
 		add_request();
+		set_approver();
 	}
 	function action_table_loader()
 	{
@@ -52,6 +53,13 @@ function request_leave()
 		$('.request-leave').click(function()
         {
             action_load_link_to_modal('/employee/leave_request_add', 'md');
+        })
+	}
+	function set_approver()
+	{
+		$('.set-approver').click(function()
+        {
+            action_load_link_to_modal('/employee/set-approver', 'md');
         })
 	}
 }

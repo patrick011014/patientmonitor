@@ -36,7 +36,29 @@ class EmailController extends Member
             $approver_name = $approver->employee_first_name." ".$approver->employee_last_name;
             if($tag == 'approver1')
             {
+                // approver details
+
+                $request = Tbl_leave_request::where('leave_request_id',$rid)->first();
+                
+                $eid = 3;
+                $recipient_name = 'Michael Antone';
+                $recipient_email = 'michael.antone@sgsco.com';
+                
+                $email_data['from'] = $this->employee_info->employee_email;
+                $email_data['sender_name'] = $this->employee_info->employee_first_name." ".$this->employee_info->employee_last_name;
+                $email_data['to'] = $recipient_email;
+                $email_data['recipient_name'] = $recipient_name;
+                $email_data['subject'] = "Leave of Absence";
+                $email_data['date_from'] = $request->date_from;
+                $email_data['date_to'] = $request->date_to;
+                $email_data['reason'] = $request->reason;
+                $email_data['domain'] = 'sgsco.test';
+                $email_data['link'] = 'rid='.$rid.'&tag=approver2&eid='.$eid;
+
+                $this->send_email($email_data);
+
                 $update['approve_one_by'] = $approver_name;
+                $update['status'] = 'pending';
                 Tbl_leave_request::where('leave_request_id',$rid)->update($update);
             }
             else if($tag == 'approver2')
