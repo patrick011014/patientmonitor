@@ -49,7 +49,14 @@ Route::any('/admin/shift_template','Admin\AdminController@shift_template');
 Route::any('/employee/dashboard','Employee\EmployeeController@dashboard');
 Route::any('/employee/profile_information','Employee\EmployeeController@profile_information');
 Route::any('/employee/company_information','Employee\EmployeeController@company_information');
+
+// request leave - patrick
 Route::any('/employee/leave_request','Employee\EmployeeController@leave_request');
+Route::get('/employee/leave_request_table','Employee\EmployeeController@leave_request_table');
+Route::get('/employee/leave_request_add','Employee\EmployeeController@add_request_leave');
+Route::post('/employee/leave_request_add','Employee\EmployeeController@submit_request_leave');
+
+
 Route::any('/employee/leave_approver','Employee\EmployeeController@leave_approver');
 
 

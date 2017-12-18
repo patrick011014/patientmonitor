@@ -96,12 +96,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
       <!-- GLOBAL MULTIPLE MODAL -->
       <div class="multiple_global_modal_container"></div>
       <!-- END GLOBAL MULTIPLE MODAL -->
-
-      <footer class="templatemo-footer">
-        <div class="templatemo-copyright">
-          <p>Copyright &copy; 2084 Your Company Name</p>
-        </div>
-      </footer>
+      
     </div>
     <div class="modal-loader hidden"></div>
     <script src="/assets/layoutdashboard/js/jquery.min.js"></script>
