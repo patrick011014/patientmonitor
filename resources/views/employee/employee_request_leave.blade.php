@@ -9,8 +9,8 @@
              <h4><b>Leave Request History</b></h4>
           </div>
           <div class="col-md-6">
-            <button class="pull-right btn btn-primary btn-custom-primary request-leave" type="button"> Request Leave</button>
-            <!-- <button class="pull-right btn btn-primary btn-custom-primary request-leave" type="button"> Command Button</button> -->
+            <button class="pull-right btn btn-info btn-custom-primary request-leave" type="button"><i class="fa fa-reply" aria-hidden="true"></i> Request Leave</button>
+            <button style="margin-right: 10px;" class="pull-right btn btn-primary btn-custom-primary set-approver" type="button"><i class="fa fa-cog" aria-hidden="true"></i> Request Setting</button>
           </div>
         </div>
         

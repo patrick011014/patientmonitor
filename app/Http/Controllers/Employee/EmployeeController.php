@@ -20,6 +20,7 @@ use Mail;
 
 use App\Models\Tbl_employee_info;
 use App\Models\Tbl_leave_request;
+use App\Models\Tbl_approvers;
 
 class EmployeeController extends Member
 {
@@ -56,7 +57,51 @@ class EmployeeController extends Member
     public function add_request_leave()
     {
         $data['page'] = "Request Leave";
-        return view('employee.request_leave_add',$data);
+        $approver = Tbl_approvers::where('employee_id',$this->employee_info->employee_id)->where('approver_type','line_manager')->first();
+        if($approver)
+        {
+            return view('employee.request_leave_add',$data);
+        }
+        else
+        {
+            $data['page'] = "Set Line Manager";
+            $data['approver_type'] = 'line_manager';
+            $data['employee'] = Tbl_employee_info::where('employee_id','!=',$this->employee_info->employee_id)->get();
+            return view('employee.employee_set_approver',$data);
+        }
+        
+    }
+    public function set_approver_index()
+    {
+        $data['page'] = "Set Line Manager";
+        $data['approver_type'] = 'line_manager';
+        $data['employee'] = Tbl_employee_info::where('employee_id','!=',$this->employee_info->employee_id)->get();
+        return view('employee.employee_set_approver',$data);
+    }
+    public function set_approver(Request $request)
+    {
+        $insert['employee_id'] = $this->employee_info->employee_id;
+        $insert['approver_type'] = $request->approver_type;
+        $insert['archive'] = 0;
+        $insert['approver_employee_id'] = $request->approver_employee_id;
+        
+        $approver = Tbl_approvers::where('employee_id',$this->employee_info->employee_id)->where('approver_type',$request->approver_type)->first();
+        if($approver)
+        {
+            $update['approver_employee_id'] = $request->approver_employee_id;
+            Tbl_approvers::where('employee_id',$this->employee_info->employee_id)
+                         ->where('approver_type',$request->approver_type)
+                         ->update($update);
+        }
+        else
+        {
+            Tbl_approvers::insert($insert);
+        }
+        
+        $response['call_function'] = 'success';
+        
+        return json_encode($response);
+
     }
     public function submit_request_leave(Request $request)
     {
@@ -73,12 +118,13 @@ class EmployeeController extends Member
 
         $id = Tbl_leave_request::insertGetId($request_leave);
 
-        $crypt_id = Crypt::encrypt($id);
 
+        $approver_details = Tbl_approvers::Employee()->where('tbl_approvers.employee_id',$this->employee_info->employee_id)->where('tbl_approvers.approver_type','line_manager')->first();
         // approver details
-        $eid = 1;
-        $recipient_name = 'John Patrick Manarang';
-        $recipient_email = 'patrickmanarang143@gmail.com';
+
+        $eid = $approver_details->approver_employee_id;
+        $recipient_name = $approver_details->employee_first_name." ".$approver_details->employee_last_name;
+        $recipient_email = $approver_details->employee_email;
         
         $email_data['from'] = $this->employee_info->employee_email;
         $email_data['sender_name'] = $this->employee_info->employee_first_name." ".$this->employee_info->employee_last_name;
@@ -88,7 +134,8 @@ class EmployeeController extends Member
         $email_data['date_from'] = $request->date_from;
         $email_data['date_to'] = $request->date_to;
         $email_data['reason'] = $request->reason;
-        $email_data['link'] = 'sgsco.test/respond_to_request?rid='.$crypt_id.'&tag=approver1&eid='.$eid;
+        $email_data['domain'] = 'sgsco.test';
+        $email_data['link'] = 'rid='.$id.'&tag=approver1&eid='.$eid;
 
         $this->send_email($email_data);
         $response['call_function'] = 'success';
@@ -99,7 +146,7 @@ class EmployeeController extends Member
     {
         Mail::send('emails.request_leave',$data, function($message) use ($data)
         {
-            $message->from($data["from"], "SGSCO.HRIS");
+            $message->from('sgsco.hris@gmail.com', "SGSCO.HRIS");
             $message->subject($data['subject']." - ".$data['sender_name']);
             $message->to($data["to"]);
         });
