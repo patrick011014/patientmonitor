@@ -85,7 +85,7 @@
       </div>
 
       <div>
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" style="margin-top: 40px;">
           <li class="active"><a data-toggle="tab" href="#Address">Address</a></li>
           <li><a data-toggle="tab" href="#company_details">Company Details</a></li>
           <li><a data-toggle="tab" href="#government">Government</a></li>
@@ -173,23 +173,136 @@
                       <option value="">Resigned</option>
                     </select>
                   </div>
-                  
                 </div>
             </div>
           </div>
           <div id="government" class="tab-pane fade">
-            <h3>Menu 1</h3>
-            <p>Some content in menu 1.</p>
+            <div class="row clearfix">
+              <div class="col-md-6">
+                <div class="form-group">
+                   <small for="tin_number">Tin Number</small>
+                   <input class="form-control" id="tin_number" type="text" name="employee_tin" >        
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                   <small for="sss_number">SSS Number</small>
+                   <input class="form-control" id="sss_number" type="text" name="employee_sss" >        
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-md-6">
+                <div class="form-group">
+                   <small for="pagibig_number">Pagibig Number</small>
+                   <input class="form-control" id="pagibig_number" type="text" name="employee_pagibig" >        
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                   <small for="philhealth_number">Philhealth Number</small>
+                   <input class="form-control" id="philhealth_number" type="text" name="employee_philhealth" >        
+                </div>
+              </div>
+            </div>
           </div>
           <div id="shift" class="tab-pane fade">
-            <h3>Menu 2</h3>
-            <p>Some content in menu 2.</p>
+            <div class="row clearfix">
+              <div class="col-md-12">
+                <small for="shift_code">Select Shift</small>
+                <select class="form-control" id="shift_code" name="shift_code_id" required>
+                  <option value="">Select Shift</option>
+                  <option value="">Day Shift</option>
+                  <option value="">Night Shift</option>
+                </select>
+              </div>
+            </div>
+            <div class="row clearfix table-shift ">
+              <div class="col-md-12">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <th class="text-center">Day</th>
+                    <th class="text-center">Working Hours</th>
+                    <th class="text-center">Time In</th>
+                    <th class="text-center">Time Out</th>
+                    <th class="text-center">Night Shift</th>
+                    <th class="text-center">Rest Day</th>
+                    <th class="text-center">Extra Day</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center">SUN</td>
+                      <td class="text-center">8.00</td>
+                      <td class="text-center">9:00 PM</td>
+                      <td class="text-center">3:00 AM</td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">MON</td>
+                      <td class="text-center">8.00</td>
+                      <td class="text-center">9:00 PM</td>
+                      <td class="text-center">3:00 AM</td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">TUE</td>
+                      <td class="text-center">8.00</td>
+                      <td class="text-center">9:00 PM</td>
+                      <td class="text-center">3:00 AM</td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">WEN</td>
+                      <td class="text-center">8.00</td>
+                      <td class="text-center">9:00 PM</td>
+                      <td class="text-center">3:00 AM</td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">THU</td>
+                      <td class="text-center">8.00</td>
+                      <td class="text-center">9:00 PM</td>
+                      <td class="text-center">3:00 AM</td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">FRI</td>
+                      <td class="text-center">8.00</td>
+                      <td class="text-center">9:00 PM</td>
+                      <td class="text-center">3:00 AM</td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">SAT</td>
+                      <td class="text-center">8.00</td>
+                      <td class="text-center">9:00 PM</td>
+                      <td class="text-center">3:00 AM</td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                      <td class="text-center"><input type="checkbox" name=""></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
     </div>
   </div>

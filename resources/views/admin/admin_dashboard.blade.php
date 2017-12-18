@@ -6,13 +6,12 @@
       <div class="panel-heading">
         <div class="row clearfix">
           <div class="col-md-6" style="text-align: left;">
-             <h4><b>Admin Dashboard &nbsp; Employee List</b></h4>
+             <h4><b>Admin Dashboard</b></h4>
           </div>
           <div class="col-md-6">
             
           </div>
         </div>
-        
       </div>
     </div>
 

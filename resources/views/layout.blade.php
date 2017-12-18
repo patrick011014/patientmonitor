@@ -20,9 +20,9 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
 -->
 </head>
 <body>
-  <div class="navbar navbar-inverse" role="navigation">
+    <div class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
-        <div class="logo"><h1>SGSCO.HRIS</h1></div>
+        <div class="logo"><h1>Dashboard - Admin Template</h1></div>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -43,7 +43,17 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
           @if(Session::get('user_level') == 'admin')
           <li class="{{Request::segment(2) == 'dashboard' ? 'active' : ''}}"><a href="/admin/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
           <li class="{{Request::segment(2) == 'employee_list' ? 'active' : ''}}"><a href="/admin/employee_list"><i class="fa fa-cubes"></i>Employee List</a></li>
-          <li class="{{Request::segment(2) == 'employee_approver' ? 'active' : ''}}"><a href="/admin/employee_approver"><i class="fa fa-map-marker"></i>Employee Approver</a></li>
+          <li class="{{Request::segment(2) == 'time_keeping' ? 'active' : ''}}"><a href="/admin/time_keeping"><i class="fa fa-map-marker"></i>Time Keeping</a></li>
+          <!-- <li class="{{Request::segment(2) == 'employee_approver' ? 'active' : ''}}"><a href="/admin/employee_approver"><i class="fa fa-map-marker"></i>Employee Approver</a></li> -->
+          <li class="sub open">
+            <a href="javascript:;">
+              <i class="fa fa-database"></i> Configuration <div class="pull-right"><span class="caret"></span></div>
+            </a>
+            <ul class="templatemo-submenu">
+              <li><a href="/admin/holiday">Holiday</a></li>
+              <li><a href="/admin/shift_template">Shift Template</a></li>
+            </ul>
+          </li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
           @else
           <li class="{{Request::segment(2) == 'dashboard' ? 'active' : ''}}"><a href="/employee/dashboard"><i class="fa fa-home"></i>Dashboard</a></li>
@@ -93,7 +103,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
         </div>
       </footer>
     </div>
-
+    <div class="modal-loader hidden"></div>
     <script src="/assets/layoutdashboard/js/jquery.min.js"></script>
     <script src="/assets/layoutdashboard/js/bootstrap.min.js"></script>
     <script src="/assets/layoutdashboard/js/Chart.min.js"></script>
@@ -137,13 +147,6 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
       ]
 
     }
-
-    // window.onload = function(){
-    //   var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
-    //   window.myLine = new Chart(ctx_line).Line(lineChartData, {
-    //     responsive: true
-    //   });
-    // };
 
     $('#myTab a').click(function (e) {
       e.preventDefault();
