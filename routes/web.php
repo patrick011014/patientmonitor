@@ -13,7 +13,12 @@
 
 Route::get('/','LoginController@index');
 
-Route::any('/login','LoginController@login');
+Route::get('/login',function()
+{
+	
+});
+Route::post('/login','LoginController@login');
+
 Route::any('/logout','LoginController@logout');
 
 Route::any('/admin/dashboard','Admin\AdminController@dashboard');
