@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Controllers\Member;
+use App\Models\Tbl_employee_info;
 
 use Redirect;
 use Validator;
@@ -16,7 +17,7 @@ use Session;
 use DB;
 use Request;
 use Excel;
-
+use Input;
 class AdminController extends Member
 {
     public function index()
@@ -31,7 +32,8 @@ class AdminController extends Member
 
     public function employee_list()
     {
-    	return view('admin.employee_list');
+        $data['_employee'] = Tbl_employee_info::get();
+    	return view('admin.employee_list',$data);
     }
 
     public function employee_approver()
@@ -66,14 +68,44 @@ class AdminController extends Member
 
     public function save_201_file()
     {
-        $file = Request::input('file');
-        die(var_dump($file));
-        $employee_info = Excel::selectSheetsByIndex(0)->load($file, function($reader){})->get(array('employee_number','biometric_number','first_name','middle_name','last_name'))->toArray();
-        die(var_dump($employee_info));
-        $response['success'] = 'success';
-        $response['call_function'] = 'reload_employee_list';
+       $file = Input::file('201_file');
+       $_data = Excel::selectSheetsByIndex(0)->load($file, function($reader){})->all();
+       $_array = array();
 
-       
+       foreach ($_data as $key => $data) 
+       {
+         // die(var_dump($data));
+         $insert = null;
+
+         $insert['employee_first_name']         = Self::nullableToString($data['first_name']);
+         $insert['employee_middle_name']        = Self::nullableToString($data['middle_name']);
+         $insert['employee_last_name']          = Self::nullableToString($data['last_name']);
+         $insert['employee_contact']            = Self::nullableToString($data['employee_contact']);
+         $insert['employee_email']              = Self::nullableToString($data['employee_email']);
+         $insert['employee_birthdate']          = date('Y-m-d');
+         $insert['employee_number']             = Self::nullableToString($data['employee_number']);
+         $insert['employee_atm_number']         = 'null';
+         $insert['employee_address']            = 'null';
+         $insert['employee_street']             = 'null';
+         $insert['employee_city']               = 'null';
+         $insert['employee_state']              = Self::nullableToString($data['employee_state']);
+         $insert['employee_zipcode']            = 'null';
+         $insert['employee_tax_status']         = 'null';
+         $insert['employee_tin']                = 'null';
+         $insert['employee_sss']                = 'null';
+         $insert['employee_pagibig']            = 'null';
+         $insert['employee_philhealth']         = 'null';
+         $insert['password']                    = 'null';
+         $insert['employee_remarks']            = 'null';
+
+         // die(var_dump($insert));
+         // array_push($_array, $insert);
+
+         Tbl_employee_info::insert($insert);
+       }
+       // Tbl_employee_info::insert($insert);
+       // return  Redirect::to('/admin/employee_list');
+       // die(var_dump($_array));
     }
 
     public function time_keeping()
@@ -102,5 +134,21 @@ class AdminController extends Member
     public function shift_template()
     {
         return view('admin.shift_template');
+    }
+
+
+    public function nullableToString($data = null, $output = 'string')
+    {
+
+         if($data == null && $output == 'string')
+         {
+              $data = '';
+         }
+         else if($data == null && $output == 'int')
+         {
+              $data = 0;
+         }
+
+         return $data;
     }
 }

@@ -12,6 +12,7 @@ function modal_import_201_file()
 	function document_ready()
 	{
 		$(document).ready(function() {
+
 			bio_file_change();
 			import_201_file();
 		});
@@ -32,29 +33,14 @@ function modal_import_201_file()
 	   $('.import-file').unbind('click');
 	   $('.import-file').bind('click', function()
 	   	{
-	   		var file = $("#201_file")[0].files[0];
+	   		var file = $(".201_file")[0].files[0];
 	   		if(file != undefined)
 	   		{
-	   			// var formdata = new FormData();
-	   			// formdata.append('_token', $('#_token').val());
-	   			// formdata.append('file', file);
-
-	   			// $.ajax(
-	   			// {
-	   			// 	url: '/admin/save_201_file',
-	   			// 	type: 'post',
-	   			// 	data: {file : file, _token : $('#_token').val()  },
-	   			// 	success : function(data)
-	   			// 	{
-	   			// 		console.log('done');
-	   			// 	}
-	   			// });
-
 	   			var formdata 	= new FormData();
 	   			var ajax 		= new XMLHttpRequest();
 
-	   			formdata.append("_token", $("#_token").val());
-	   			formdata.append("file",file);
+	   			formdata.append("_token", $("._token").attr('value'));
+	   			formdata.append("201_file",file);
 
 	   			ajax.upload.addEventListener("progress",function(event)
 	   			{
@@ -63,6 +49,7 @@ function modal_import_201_file()
 
 	   			ajax.addEventListener("load",function(event)
 	   			{
+	   				window.location.href = '/admin/employee_list';
 	   				// $(".import-status").html(event.target.responseText);
 	   			},false);
 
