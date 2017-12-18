@@ -11,7 +11,7 @@
   
   <link rel="stylesheet" type="text/css" href="/assets/login/css/templatemo_style.css">
   <link rel="stylesheet" type="text/css" href="/assets/toaster/toastr.css?v=1">
-
+  <link href="/assets/select2/select2.min.css" rel="stylesheet" type="text/css">
 
    @yield('css')
 <!-- 
@@ -104,6 +104,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     <script src="/assets/layoutdashboard/js/Chart.min.js"></script>
     <script src="/assets/layoutdashboard/js/templatemo_script.js"></script>
     <script type="text/javascript" src="/assets/toaster/toastr.min.js?v=1"></script>
+    <script src="/assets/select2/select2.min.js"></script>
     
     <!-- start global js -->
     <script src="/assets/layoutdashboard/global.js"></script>

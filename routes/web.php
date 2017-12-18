@@ -13,7 +13,12 @@
 
 Route::get('/','LoginController@index');
 
-Route::any('/login','LoginController@login');
+Route::get('/login',function()
+{
+	
+});
+Route::post('/login','LoginController@login');
+
 Route::any('/logout','LoginController@logout');
 
 Route::any('/admin/dashboard','Admin\AdminController@dashboard');
@@ -50,6 +55,10 @@ Route::any('/employee/dashboard','Employee\EmployeeController@dashboard');
 Route::any('/employee/profile_information','Employee\EmployeeController@profile_information');
 Route::any('/employee/company_information','Employee\EmployeeController@company_information');
 
+//set approver - patrick
+Route::any('/employee/set_approver','Employee\EmployeeController@set_approver');
+Route::get('/employee/set-approver','Employee\EmployeeController@set_approver_index');
+
 // request leave - patrick
 Route::any('/employee/leave_request','Employee\EmployeeController@leave_request');
 Route::get('/employee/leave_request_table','Employee\EmployeeController@leave_request_table');
@@ -59,6 +68,7 @@ Route::post('/employee/leave_request_add','Employee\EmployeeController@submit_re
 //respond to email - patrick
 Route::get('/respond_to_request/approve','Email\EmailController@approve');
 Route::get('/respond_to_request/reject','Email\EmailController@reject');
+
 
 Route::any('/employee/leave_approver','Employee\EmployeeController@leave_approver');
 
