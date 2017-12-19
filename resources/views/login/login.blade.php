@@ -21,12 +21,12 @@
 <body class="templatemo-bg-gray">
 	<div class="container">
 		<div class="col-md-12">
-			<h1 class="login-title">Login as Employer</h1>
+			<h1 class="login-title">Login as Admin</h1>
 			<form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" role="form" action="/login" method="post">
 	        	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	        	<div class="form-group">
 		        	<ul class="nav nav-tabs">
-				        <li class="active change-tab pending-tab cursor-pointer" mode="pending"><a class="cursor-pointer"><i class="fa fa-user"></i> Employer</a></li>
+				        <li class="active change-tab pending-tab cursor-pointer" mode="pending"><a class="cursor-pointer"><i class="fa fa-user"></i> Admin</a></li>
 				        <li class="cursor-pointer change-tab approve-tab" mode="approved"><a class="cursor-pointer"><i class="fa fa-users"></i> Employee</a></li>
 				    </ul>
 				</div>
@@ -51,14 +51,14 @@
 		          <div class="col-md-12">
 		          	<div class="control-wrapper">
 		          		<input type="submit" value="Log in" class="btn btn-info">
-		          		<a href="forgot-password.html" class="text-right pull-right">Forgot password?</a>
+		          		<a href="#" class="text-right pull-right">Forgot password?</a>
 		          	</div>
 		          </div>
 		        </div>
 		      </form>
-		      <div class="text-center">
+		      <!-- <div class="text-center">
 		      	<a href="create-account.html" class="templatemo-create-new">Create new account <i class="fa fa-plus-circle"></i></a>	
-		      </div>
+		      </div> -->
 		</div>
 	</div>
 </body>
