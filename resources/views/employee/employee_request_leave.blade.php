@@ -22,8 +22,8 @@
         
         <div class="panel panel-default panel-block panel-title-block panel-gray "  style="margin-bottom: -10px;">
             <ul class="nav nav-tabs">
-                <li class="active change-tab pending-tab cursor-pointer" mode="approved"><a class="cursor-pointer"><i class="fa fa-check-circle"></i> Approved</a></li>
-                <li class="cursor-pointer change-tab approve-tab" mode="pending"><a class="cursor-pointer"><i class="fa fa-spinner fa-spin"></i> Pending</a></li>
+                <li class="active cursor-pointer change-tab approve-tab" mode="pending"><a class="cursor-pointer"><i class="fa fa-spinner fa-spin"></i> Pending</a></li>
+                <li class="change-tab pending-tab cursor-pointer" mode="approved"><a class="cursor-pointer"><i class="fa fa-check-circle"></i> Approved</a></li>
                 <li class="cursor-pointer change-tab approve-tab" mode="rejected"><a class="cursor-pointer"><i class="fa fa-times-circle-o"></i> Rejected</a></li>
             </ul>
             <!-- filter div -->
@@ -49,6 +49,6 @@
 </div>
 @endsection
 @section('scripts')
-<script type="text/javascript" src="/assets/js/request_leave.js?v=1"></script>
+<script type="text/javascript" src="/assets/js/request_leave.js?v=2"></script>
 @endsection
 

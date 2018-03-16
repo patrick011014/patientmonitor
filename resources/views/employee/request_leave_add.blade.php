@@ -36,6 +36,7 @@
 	{
 		toastr.success("Request Send");
     	data.element.modal("hide");
+    	request_leave.action_load_table();
 	}
 	function error(data)
 	{
