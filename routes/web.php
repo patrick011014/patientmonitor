@@ -11,15 +11,25 @@
 |
 */
 
-Route::get('/','LoginController@index');
+// patient monitoring
+Route::get('/','UserLoginController@index');  
+Route::post('/login','UserLoginController@login');
+Route::any('/logout','UserLoginController@logout');
+AdvancedRoute::controller('/member', 'PatientMonitoring\PatientMonitoringController');
+
+// patient monitoring end
+
+// sgsco 
+
+// Route::get('/','LoginController@index');  
 
 Route::get('/login',function()
 {
 	
 });
-Route::post('/login','LoginController@login');
+// Route::post('/login','LoginController@login'); 
 
-Route::any('/logout','LoginController@logout');
+// Route::any('/logout','LoginController@logout'); 
 
 Route::any('/admin/dashboard','Admin\AdminController@dashboard');
 Route::any('/admin/employee_approver','Admin\AdminController@employee_approver');
@@ -72,4 +82,5 @@ Route::get('/respond_to_request/reject','Email\EmailController@reject');
 
 Route::any('/employee/leave_approver','Employee\EmployeeController@leave_approver');
 
+// sgsco end
 

@@ -10,7 +10,7 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "~2.1.0",
-        "lesichkovm/laravel-advanced-route": "dev-master",
+        "lesichkovm/laravel-advanced-route": "dev-master"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -61,5 +61,5 @@
             "type": "vcs",
             "url": "https://github.com/lesichkovm/laravel-advanced-route.git"
         }
-    ],
+    ]
 }
