@@ -43,3 +43,6 @@
         @endforeach
     </tbody>
 </table>
+{{-- <div class="pull-right">
+    {!! $rows->render() !!}
+</div> --}}

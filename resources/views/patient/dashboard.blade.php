@@ -23,8 +23,8 @@
 
     <div class="panel panel-default panel-block panel-title-block panel-gray "  style="margin-bottom: -10px;">
     <ul class="nav nav-tabs">
-        <li class="active change-tab pending-tab cursor-pointer" mode="0"><a class="cursor-pointer"><i class="fa fa-check"></i> 1st Floor</a></li>
-        <li class="cursor-pointer change-tab approve-tab" mode="1"><a class="cursor-pointer"><i class="fa fa-first-aid"></i> 2nd floor</a></li>
+        <li class="active change-tab pending-tab cursor-pointer" mode="1st floor"><a class="cursor-pointer"><i class="fa fa-check"></i> 1st floor</a></li>
+        <li class="cursor-pointer change-tab approve-tab" mode="2nd floor"><a class="cursor-pointer"><i class="fa fa-first-aid"></i> 2nd floor</a></li>
     </ul>
     {{-- <div class="search-filter-box">
         <div class="col-md-3" style="padding: 10px">
@@ -52,7 +52,7 @@
             <div class="clearfix">
                 <div class="col-md-12">
                     <div class="table-responsive load-table-here">
-                    	<div class="col-md-2" style="padding:10px;">
+                    	{{-- <div class="col-md-2" style="padding:10px;">
                         	<button onclick="" class="btn btn-danger"><i class="fa fa-building"></i> <br>Room 201</button>
                         </div>
                     	@for($x=2;$x<10;$x++)
@@ -62,7 +62,7 @@
                     	@endfor
                     	<div class="col-md-2" style="padding:10px;">
                         	<button onclick="" class="btn btn-warning"><i class="fa fa-building"></i> <br>Room 210</button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

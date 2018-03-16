@@ -26,7 +26,6 @@ function rooms()
 		event_filters();
 		event_modify();
 		event_search();
-		event_modify();
 		event_archive();
 	}
 	function event_change_tab(e)
@@ -91,6 +90,7 @@ function rooms()
 		{
 			var room_id = $(e.currentTarget).closest('tr').attr('id');
 			action_load_link_to_modal('/member/modify-room?id='+room_id,'md');
+			// console.log('clicked');
 		});
 	}
 	function event_archive()
@@ -99,6 +99,7 @@ function rooms()
 		{
 			var id = $(e.currentTarget).closest('tr').attr('id');
 			var action = $(e.currentTarget).text();
+			// console.log('archive');
 
 			$.ajax(
 			{

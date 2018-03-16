@@ -28,6 +28,16 @@ class PatientMonitoringController extends Patient
     	$data['page'] = "Dashboard";
     	return view('patient.dashboard',$data);
     }
+    public function getDashboardTable()
+    {
+    	$data['page'] = 'Dashboard Table';
+    	
+    	$floor = request('room_level');
+    	$data['private'] = Tbl_rooms::where('room_level',$floor)->where('room_type',"Private Room")->where('archived',0)->get();
+    	$data['ward'] = Tbl_rooms::where('room_level',$floor)->where('room_type',"Ward")->where('archived',0)->get();
+
+    	return view('tables.index_table',$data);
+    }
     public function getRooms()
     {
     	$data['page'] = 'Rooms';
