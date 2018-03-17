@@ -1,10 +1,12 @@
 <div class="col-md-12">
-	<h1 class="pull-left">
+	<h4 class="pull-left">
+		<b>
 		@if(count($private)<1)
 		No
 		@endif
 		Private Rooms
-	</h1>
+		</b>
+	</h4>
 	<div class="col-md-12"></div>
 	@foreach($private as $room)
 	<div class="col-md-2" style="padding:10px;">
@@ -14,12 +16,14 @@
 </div>
 
 <div class="col-md-12">
-	<h1 class="pull-left">
+	<h4 class="pull-left">
+		<b>
 		@if(count($ward)<1)
 		No
 		@endif
-		Ward Rooms
-	</h1>
+		Ward
+		</b>
+	</h4>
 	<div class="col-md-12"></div>
 	@foreach($ward as $room)
 	<div class="col-md-2" style="padding:10px;">

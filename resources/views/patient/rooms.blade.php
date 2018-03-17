@@ -20,7 +20,14 @@
         Hello Admin
       </div>
     </div> --}}
-
+    <div class="row clearfix">
+      <div class="col-md-6" style="text-align: left;">
+         <h4><b>{{$page}}</b></h4>
+      </div>
+      <div class="col-md-6">
+        
+      </div>
+    </div>
     <div class="panel panel-default panel-block panel-title-block panel-gray "  style="margin-bottom: -10px;">
     <ul class="nav nav-tabs">
         <li class="active change-tab pending-tab cursor-pointer" mode="0"><a class="cursor-pointer"><i class="fa fa-check"></i> Active</a></li>

@@ -39,7 +39,7 @@ class UserLoginController extends Controller
         $password   = $request->password;
 
 
-        $user_info  = Tbl_user::where('username',$username)->first();
+        $user_info  = Tbl_user::where('username',$username)->where('archived',0)->first();
 
         if($user_info)
         {
