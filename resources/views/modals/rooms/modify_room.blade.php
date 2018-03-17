@@ -9,25 +9,40 @@
 
             <input type="hidden" name="room_id" value="{{ $room_id }}">
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="basic-input">Room Name</label>
                 <input autocomplete="off" value="{{ $row->room_name }}" id="basic-input" type="text" class="form-control" name="room_name">
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="basic-input">Room Type</label>
                 <select class="form-control" name="room_type">
                     <option @if($row->room_type == 'Private Room') selected @endif >Private Room</option>
                     <option @if($row->room_type == 'Ward') selected @endif >Ward</option>
                 </select>
             </div>
-            <div class="col-md-12">
+        </div> 
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <label for="basic-input">Room Key</label>
+                <input value="{{ $row->arduino_key }}" autocomplete="off" id="basic-input" type="text" class="form-control" name="arduino_key">
+            </div>
+            <div class="col-md-6">
                 <label for="basic-input">Room Level</label>
                 <select class="form-control" name="room_level">
                     <option @if($row->room_level == '1st floor') selected @endif >1st floor</option>
                     <option @if($row->room_level == '2nd floor') selected @endif >2nd floor</option>
                 </select>
             </div>
-        </div>    
+        </div> 
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <label for="basic-input">Room Capacity</label>
+                <input value="{{ $row->capacity }}" autocomplete="off" id="basic-input" type="text" class="form-control" name="room_capacity">
+            </div>
+        </div>  
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-def-white btn-custom-white" data-dismiss="modal">Close</button>
@@ -44,5 +59,9 @@
     function complete_fields(data)
     {
         toastr.error('Please complete all fields');
+    }
+    function invalid_capacity(data)
+    {
+        toastr.error('Invalid room capacity');
     }
 </script>

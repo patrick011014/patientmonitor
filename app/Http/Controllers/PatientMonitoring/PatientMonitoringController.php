@@ -11,6 +11,7 @@ use App\Http\Controllers\Patient;
 use App\Models\Tbl_employee_info;
 use App\Models\Tbl_user;
 use App\Models\Tbl_rooms;
+use App\Models\Tbl_patient;
 
 use Illuminate\Http\Request;
 
@@ -54,10 +55,15 @@ class PatientMonitoringController extends Patient
     	$insert['room_type'] 	= $request->room_type;
     	$insert['room_level'] 	= $request->room_level;
     	$insert['archived'] 	= 0;
+        $insert['patient_id']   = 0;
+        $insert['capacity']     = $request->room_capacity;
+        $insert['arduino_key']  = $request->arduino_key;
 
-    	$rules['room_name'] = 'required';
-    	$rules['room_type'] = 'required';
-    	$rules['room_level'] = 'required';
+    	$rules['room_name']     = 'required';
+    	$rules['room_type']     = 'required';
+    	$rules['room_level']    = 'required';
+        $rules['capacity']      = 'required';
+        $rules['arduino_key']   = 'required';
 
     	$validator = Validator::make($insert, $rules);
 
@@ -65,6 +71,10 @@ class PatientMonitoringController extends Patient
     	{
     		$response["call_function"] = 'complete_fields';
     	}
+        else if(!is_numeric($request->room_capacity))
+        {
+            $response['call_function'] = 'invalid_capacity';
+        }
     	else
     	{
     		Tbl_rooms::insert($insert);
@@ -85,17 +95,26 @@ class PatientMonitoringController extends Patient
     	$update['room_name'] 	= $request->room_name;
     	$update['room_type'] 	= $request->room_type;
     	$update['room_level'] 	= $request->room_level;
+        $update['capacity']     = $request->room_capacity;
+        $update['arduino_key']  = $request->arduino_key;
 
-    	$rules['room_name'] = 'required';
-    	$rules['room_type'] = 'required';
-    	$rules['room_level'] = 'required';
+    	$rules['room_name']     = 'required';
+    	$rules['room_type']     = 'required';
+    	$rules['room_level']    = 'required';
+        $rules['capacity']      = 'required';
+        $rules['arduino_key']   = 'required';
 
     	$validator = Validator::make($update, $rules);
 
     	if($validator->fails())
     	{
     		$response["call_function"] = 'complete_fields';
+            $response['status_message'] = '';
     	}
+        else if(!is_numeric($request->room_capacity))
+        {
+            $response['call_function'] = 'invalid_capacity';
+        }
     	else
     	{
     		Tbl_rooms::where('room_id',$request->room_id)->update($update);
@@ -136,7 +155,7 @@ class PatientMonitoringController extends Patient
         	$query->where('room_level',request('level'));
         }
 
-        $data["rows"] = $query->get();
+        $data["rows"] = $query->orderBy('room_name')->get();
         return view("tables.rooms_table", $data);
     }
     public function getAccounts()
@@ -275,5 +294,141 @@ class PatientMonitoringController extends Patient
     	}
     	$username = str_replace(' ', '', strtolower($firstname)) . str_replace(' ', '', strtolower(substr($lastname, 0,2))) . $placeholder . $user_id;
     	return $username;
+    }
+    public function getPatients()
+    {
+        $data['page'] = "Patients";
+        return view("patient.patients",$data);
+    }
+    public function getPatientTable()
+    {
+        $data["status"] = request("status");
+        $query = Tbl_patient::where("status",request("status"));
+
+        if(request('search')!='')
+        {
+            $query->where("patient_display_name","LIKE","%".request("search")."%");
+        }
+
+        $data["rows"] = $query->get();
+
+        if(request('status') == 'on_room')
+        {
+            foreach($data['rows'] as $key => $value)
+            {
+                $room = Tbl_rooms::where('room_id',$value->room_id)->first();
+                $data['rows'][$key]->room_name = $room->room_name;
+                $data['rows'][$key]->room_level = $room->room_level;
+                $data['rows'][$key]->room_type = $room->room_type;
+            }
+        }
+        // dd($data['rows']);
+        return view("tables.patient_table", $data);
+    }
+    public function getAddPatient()
+    {
+        $data['page'] = 'Add Patient';
+        return view('modals.patients.add_patient',$data);
+    }
+    public function postAddPatient(Request $request)
+    {
+        $insert['first_name'] = $request->first_name;
+        $insert['last_name'] = $request->last_name;
+        $insert['middle_name'] = $request->middle_name;
+        $insert['sickness'] = $request->sickness;
+        $insert['room_id'] = 0;
+        $insert['status'] = 'pending';
+        $insert['patient_display_name'] = $request->first_name." ".$request->last_name;
+
+        $rules['first_name'] = 'required';
+        $rules['last_name'] = 'required';
+        $rules['middle_name'] = 'required';
+        $rules['sickness'] = 'required';
+
+        $validator = Validator::make($insert,$rules);
+
+        if($validator->fails())
+        {
+            $response['call_function'] = 'complete_fields';
+        }
+        else
+        {
+            Tbl_patient::insert($insert);
+            $response['call_function'] = 'success';
+        }
+        return json_encode($response);
+
+    }
+    public function getArchivePatient()
+    {
+        $id = request('id');
+        $update['status'] = strtolower(request('action'));
+        $update['room_id'] = 0;
+        $update['sickness'] = '';
+        Tbl_patient::where('patient_id',$id)->update($update);
+    }
+    public function getModifyPatient()
+    {
+        $data['page'] = 'Modify Patient';
+        $data['row'] = Tbl_patient::where('patient_id',request('id'))->first();
+        return view('modals.patients.modify_patient',$data);
+    }
+    public function postModifyPatient(Request $request)
+    {
+        $update['first_name'] = $request->first_name;
+        $update['last_name'] = $request->last_name;
+        $update['middle_name'] = $request->middle_name;
+        $update['sickness'] = $request->sickness;
+
+        $rules['first_name'] = 'required';
+        $rules['last_name'] = 'required';
+
+        $validator = Validator::make($update,$rules);
+
+        if($validator->fails())
+        {
+            $response['call_function'] = 'complete_fields';
+        }
+        else
+        {
+            Tbl_patient::where('patient_id',$request->patient_id)->update($update);
+            $response['call_function'] = 'success';
+        }
+        return json_encode($response);
+    }
+    public function getAssignRoom()
+    {
+        $data['page'] = "Assign Room";
+        $data['patient_id'] = request('id');
+        $data['first_floor'] = Tbl_rooms::where('room_level','1st floor')->where('archived',0)->orderBy('room_name')->get();
+        $data['second_floor'] = Tbl_rooms::where('room_level','2nd floor')->where('archived',0)->orderBy('room_name')->get();
+
+        foreach($data['first_floor'] as $key => $value)
+        {
+            $counter = count(Tbl_patient::where('status','on_room')->where('room_id',$value->room_id)->get());
+            if($counter >= $value->capacity)
+            {
+                unset($data['first_floor'][$key]);
+            }
+        }
+
+        foreach($data['second_floor'] as $key => $value)
+        {
+            $counter = count(Tbl_patient::where('status','on_room')->where('room_id',$value->room_id)->get());
+            if($counter >= $value->capacity)
+            {
+                unset($data['second_floor'][$key]);
+            }
+        }
+
+        return view('modals.patients.assign_room',$data);
+    }
+    public function postAssignRoom(Request $request)
+    {
+        $update['room_id'] = $request->room_id;
+        $update['status'] = 'on_room';
+        Tbl_patient::where('patient_id',$request->patient_id)->update($update);
+        $response['call_function'] = 'success';
+        return json_encode($response);
     }
 }

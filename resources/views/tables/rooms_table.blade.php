@@ -2,9 +2,11 @@
     <thead style="text-transform: uppercase">
         <tr>
             @if(count($rows)!=0)
+            <th class="text-center">Room ID</th>
             <th class="text-center">Room Name</th>
             <th class="text-center">Room type</th>
             <th class="text-center">Room level</th>
+            <th class="text-center">Room Key</th>
             <!-- <th class="text-center">Shop Id</th> -->
             <th class="text-center"></th>
             @else
@@ -17,9 +19,11 @@
     <tbody>
         @foreach($rows as $row)
         <tr id="{{ $row->room_id }}">
+            <td class="text-center">{{ $row->room_id }}</td>
             <td class="text-center">{{ $row->room_name }}</td>
             <td class="text-center">{{ $row->room_type }}</td>
             <td class="text-center">{{ $row->room_level }}</td>
+            <td class="text-center">{{ $row->arduino_key }}</td>
             <td class="text-center">
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

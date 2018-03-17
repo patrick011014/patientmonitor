@@ -6,23 +6,37 @@
     </div>
     <div class="modal-body clearfix">
         <div class="form-group">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="basic-input">Room Name</label>
                 <input autocomplete="off" id="basic-input" type="text" class="form-control" name="room_name">
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="basic-input">Room Type</label>
                 <select class="form-control" name="room_type">
                     <option>Private Room</option>
                     <option>Ward</option>
                 </select>
             </div>
-            <div class="col-md-12">
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <label for="basic-input">Room Key</label>
+                <input autocomplete="off" id="basic-input" type="text" class="form-control" name="arduino_key">
+            </div>
+            <div class="col-md-6">
                 <label for="basic-input">Room Level</label>
                 <select class="form-control" name="room_level">
                     <option>1st floor</option>
                     <option>2nd floor</option>
                 </select>
+            </div>
+        </div>  
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <label for="basic-input">Room Capacity</label>
+                <input autocomplete="off" id="basic-input" type="text" class="form-control" name="room_capacity">
             </div>
         </div>    
     </div>
@@ -41,5 +55,9 @@
     function complete_fields(data)
     {
         toastr.error('Please complete all fields');
+    }
+    function invalid_capacity(data)
+    {
+        toastr.error("Invalid Room Capacity");
     }
 </script>

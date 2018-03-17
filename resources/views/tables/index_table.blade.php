@@ -13,6 +13,9 @@
 		<button onclick="" class="btn btn-primary"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
 	</div>
 	@endforeach
+	{{-- <div class="col-md-2" style="padding:10px;">
+		<button onclick="" class="btn btn-default"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
+	</div> --}}
 </div>
 
 <div class="col-md-12">
