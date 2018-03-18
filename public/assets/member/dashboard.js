@@ -3,6 +3,10 @@ var dashboard = new dashboard();
 function dashboard()
 {
 	init();
+	this.action_load_table = function()
+	{
+		action_load_table();
+	}
 	function init()
 	{
 		$(document).ready(function()
@@ -17,7 +21,7 @@ function dashboard()
 	}
 	function action_table_loader()
 	{
-		$(".load-table-here").html('<div style="padding: 100px; text-align: center; font-size: 20px;"><i class="fa fa-spinner fa-spin fa-fw"></i></div>');
+		// $(".load-table-here").html('<div style="padding: 100px; text-align: center; font-size: 20px;"><i class="fa fa-spinner fa-spin fa-fw"></i></div>');
 	}
 	function action_load_table()
 	{

@@ -11,4 +11,9 @@ class Tbl_patient extends Model
     	protected $primaryKey = "patient_id";
         public $timestamps = false;
 
+        public function scopeLogs($query)
+        {
+        	$query->leftjoin('tbl_logs','tbl_patient.patient_id','=','tbl_logs.patient_id');
+        }
+
 }

@@ -45,8 +45,8 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
           </li> --}}
           <li class="{{Request::segment(2) == '' ? 'active' : ''}}"><a href="/member"><i class="fa fa-home"></i>Dashboard</a></li>
           <li class="{{Request::segment(2) == 'rooms' ? 'active' : ''}}"><a href="/member/rooms"><i class="fa fa-building"></i>Manage Rooms</a></li>
-          <li class="{{Request::segment(2) == 'accounts' ? 'active' : ''}}"><a href="/member/accounts"><i class="fa fa-users"></i>Manage Accounts</a></li>
           <li class="{{Request::segment(2) == 'patients' ? 'active' : ''}}"><a href="/member/patients"><i class="fa fa-wheelchair"></i>Patients</a></li>
+          <li class="{{Request::segment(2) == 'accounts' ? 'active' : ''}}"><a href="/member/accounts"><i class="fa fa-users"></i>Manage Accounts</a></li>
           <li class="{{Request::segment(2) == 'doctors' ? 'active' : ''}}"><a href="/member/doctors"><i class="fa fa-user-md"></i>Doctors</a></li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
 

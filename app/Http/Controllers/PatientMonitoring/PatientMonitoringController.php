@@ -12,6 +12,7 @@ use App\Models\Tbl_employee_info;
 use App\Models\Tbl_user;
 use App\Models\Tbl_rooms;
 use App\Models\Tbl_patient;
+use App\Models\Tbl_logs;
 
 use Illuminate\Http\Request;
 
@@ -37,7 +38,82 @@ class PatientMonitoringController extends Patient
     	$data['private'] = Tbl_rooms::where('room_level',$floor)->where('room_type',"Private Room")->where('archived',0)->get();
     	$data['ward'] = Tbl_rooms::where('room_level',$floor)->where('room_type',"Ward")->where('archived',0)->get();
 
+        foreach($data['private'] as $key => $value)
+        {
+            $logs = Tbl_logs::where('arduino_key',$value->arduino_key)->first();
+            if($logs)
+            {
+                $data['private'][$key]->status = $logs->status;
+            }
+            $occupants = Tbl_patient::where('room_id',$value->room_id)->where('status','on_room')->get();
+            $data['private'][$key]->occupant = count($occupants);
+        }
+        foreach($data['ward'] as $key => $value)
+        {
+            $logs = Tbl_logs::where('arduino_key',$value->arduino_key)->first();
+            if($logs)
+            {
+                $data['ward'][$key]->status = $logs->status;    
+            }
+            $occupants = Tbl_patient::where('room_id',$value->room_id)->where('status','on_room')->get();
+            $data['ward'][$key]->occupant = count($occupants);
+        }
+
+        // dd($data);
+
     	return view('tables.index_table',$data);
+    }
+    public function getShowPatientDetails()
+    {
+        $room = Tbl_rooms::where('room_id',request('id'))->first();
+        $data['page'] = $room->room_name;
+
+        $patient = Tbl_patient::Logs()->where('tbl_patient.room_id',$room->room_id)->where('tbl_patient.status','on_room')->get();
+        // dd($patient);
+
+        foreach($patient as $key => $value)
+        {
+            // dex
+            if($value->dex > 120)
+            {
+                $patient[$key]->display_dex = "<font color='red'>Disconnected</font>";
+            }
+            else if($value->dex <=120 && $value->dex >=100)
+            {
+                $patient[$key]->display_dex = "100%";
+            }
+            else if($value->dex < 0)
+            {
+                $patient[$key]->display_dex = "0%";
+            }
+            else
+            {
+                $patient[$key]->display_dex = $value->dex."%";;
+            }
+            // temp
+            if($value->temp > 100)
+            {
+                $patient[$key]->display_temp = "<font color='red'>Disconnected</font>";
+            }
+            else
+            {
+                $patient[$key]->display_temp = $value->temp."&deg;C";
+            }
+            // pulse
+            if($value->pulse == '')
+            {
+                $patient[$key]->display_pulse = "<font color='red'>Disconnected</font>";
+            }
+            else
+            {
+                $patient[$key]->display_pulse = $value->pulse."BPM";
+            }
+        }
+
+
+        $data['patient'] = $patient;
+
+        return view('modals.dashboard.show_details',$data);
     }
     public function getRooms()
     {
@@ -156,7 +232,19 @@ class PatientMonitoringController extends Patient
         }
 
         $data["rows"] = $query->orderBy('room_name')->get();
+        foreach($data['rows'] as $key => $value)
+        {
+            $counter = count(Tbl_patient::where('room_id',$value->room_id)->where('status','on_room')->get());
+            $data['rows'][$key]->occupant = $counter;
+        }
+
         return view("tables.rooms_table", $data);
+    }
+    public function getShowOccupant()
+    {
+        $data['rows'] = Tbl_patient::where('room_id',request('id'))->where('status','on_room')->get();
+        $data['page'] = Tbl_rooms::where('room_id',request('id'))->value('room_name')." Occupant(s)";
+        return view('modals.rooms.show_occupant',$data);
     }
     public function getAccounts()
     {
@@ -427,7 +515,16 @@ class PatientMonitoringController extends Patient
     {
         $update['room_id'] = $request->room_id;
         $update['status'] = 'on_room';
+
+        $patient = Tbl_patient::where('patient_id',$request->patient_id)->first();
+
         Tbl_patient::where('patient_id',$request->patient_id)->update($update);
+
+        // archive old log
+        // dd($patient);
+        $archive['archived'] = 1;
+        Tbl_logs::where('patient_id',$request->patient_id)->where('room_id',$patient->room_id)->delete();
+
         $response['call_function'] = 'success';
         return json_encode($response);
     }

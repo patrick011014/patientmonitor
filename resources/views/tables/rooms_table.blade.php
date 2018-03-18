@@ -7,6 +7,7 @@
             <th class="text-center">Room type</th>
             <th class="text-center">Room level</th>
             <th class="text-center">Room Key</th>
+            <th class="text-center">Room Capacity</th>
             <!-- <th class="text-center">Shop Id</th> -->
             <th class="text-center"></th>
             @else
@@ -24,6 +25,7 @@
             <td class="text-center">{{ $row->room_type }}</td>
             <td class="text-center">{{ $row->room_level }}</td>
             <td class="text-center">{{ $row->arduino_key }}</td>
+            <td class="text-center"><a onclick="action_load_link_to_modal('/member/show-occupant?id={{$row->room_id}}','md')">{{ $row->occupant."/".$row->capacity }}</a></td>
             <td class="text-center">
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -82,4 +82,13 @@
 @endsection
 @section('scripts')
 <script type="text/javascript" src="/assets/member/dashboard.js"></script>
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+    setInterval(function()
+    { 
+      dashboard.action_load_table();
+    },2000);
+  });
+</script>
 @endsection
