@@ -48,13 +48,13 @@
 		<center>
 		@if($room->occupant > 0)
 			@if($room->status == 'emergency')
-			<button onclick="" class="btn btn-danger"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
+			<button onclick="action_load_link_to_modal('/member/show-patient-details?id={{ $room->room_id }}','md')" class="btn btn-danger"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
 			@elseif($room->status == 'assistance')
-			<button onclick="" class="btn btn-warning"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
+			<button onclick="action_load_link_to_modal('/member/show-patient-details?id={{ $room->room_id }}','md')" class="btn btn-warning"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
 			@elseif($room->status == 'normal')
-			<button onclick="" class="btn btn-primary"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
+			<button onclick="action_load_link_to_modal('/member/show-patient-details?id={{ $room->room_id }}','md')" class="btn btn-primary"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
 			@else
-			<button onclick="" class="btn btn-info"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
+			<button onclick="action_load_link_to_modal('/member/show-patient-details?id={{ $room->room_id }}','md')" class="btn btn-info"><i class="fa fa-building"></i> <br> {{ $room->room_name }} </button>
 			<br> <h6>Device Not Connected</h6>
 			@endif
 		@else

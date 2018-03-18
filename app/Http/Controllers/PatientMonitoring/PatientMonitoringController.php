@@ -127,6 +127,7 @@ class PatientMonitoringController extends Patient
     }
     public function postAddRoom(Request $request)
     {
+        // dd(123);
     	$insert['room_name'] 	= $request->room_name;
     	$insert['room_type'] 	= $request->room_type;
     	$insert['room_level'] 	= $request->room_level;
@@ -134,6 +135,17 @@ class PatientMonitoringController extends Patient
         $insert['patient_id']   = 0;
         $insert['capacity']     = $request->room_capacity;
         $insert['arduino_key']  = $request->arduino_key;
+
+        if($request->room_type == 'Ward')
+        {
+            $key = '';
+            for($x=1;$x<=$request->room_capacity;$x++)
+            {
+                $index = "arduino_key".$x;
+                $key .= $request->$index ."/";
+            }
+            $insert['arduino_key'] = $key;
+        }
 
     	$rules['room_name']     = 'required';
     	$rules['room_type']     = 'required';
@@ -153,6 +165,7 @@ class PatientMonitoringController extends Patient
         }
     	else
     	{
+            // dd($insert);
     		Tbl_rooms::insert($insert);
     		$response['call_function'] = 'success';
     	}

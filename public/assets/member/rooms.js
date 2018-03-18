@@ -27,6 +27,7 @@ function rooms()
 		event_modify();
 		event_search();
 		event_archive();
+		event_change_room_type();
 	}
 	function event_change_tab(e)
 	{
@@ -112,6 +113,86 @@ function rooms()
 				}
 			});
 
+		});
+	}
+	function event_change_room_type()
+	{
+		$('body').on('change','.room_type',function()
+		{
+			var content = '';
+			if(this.value == 'Ward')
+			{
+				content = ''+
+				'<div class="form-group">'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Name</label>'+
+	                    '<input autocomplete="off" id="basic-input" type="text" class="form-control" name="room_name">'+
+	                '</div>'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Type</label>'+
+	                    '<select class="form-control room_type" name="room_type">'+
+	                        '<option>Private Room</option>'+
+	                        '<option selected>Ward</option>'+
+	                    '</select>'+
+	                '</div>'+
+	            '</div>'+
+	            '<div class="form-group">'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Capacity</label>'+
+	                    '<input onkeydown="event_capacity_change()" autocomplete="off" id="basic-input" type="text" class="form-control room_capacity" name="room_capacity">'+
+	                '</div>'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Level</label>'+
+	                    '<select class="form-control" name="room_level">'+
+	                        '<option>1st floor</option>'+
+	                        '<option>2nd floor</option>'+
+	                    '</select>'+
+	                '</div>'+
+	            '</div>'+
+	            '<div class="form-group arduino_key_bed">'+
+	                
+	            '</div>'
+	            +'';
+			}
+			else
+			{
+				content = ''+
+				'<div class="form-group">'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Name</label>'+
+	                    '<input autocomplete="off" id="basic-input" type="text" class="form-control" name="room_name">'+
+	                '</div>'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Type</label>'+
+	                    '<select class="form-control room_type" name="room_type">'+
+	                        '<option>Private Room</option>'+
+	                        '<option>Ward</option>'+
+	                    '</select>'+
+	                '</div>'+
+	            '</div>'+
+
+	            '<div class="form-group">'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Key</label>'+
+	                    '<input autocomplete="off" id="basic-input" type="text" class="form-control" name="arduino_key">'+
+	                '</div>'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Level</label>'+
+	                    '<select class="form-control" name="room_level">'+
+	                        '<option>1st floor</option>'+
+	                        '<option>2nd floor</option>'+
+	                    '</select>'+
+	                '</div>'+
+	            '</div>'+
+
+	            '<div class="form-group">'+
+	                '<div class="col-md-6">'+
+	                    '<label for="basic-input">Room Capacity</label>'+
+	                    '<input autocomplete="off" id="basic-input" type="text" class="form-control" name="room_capacity">'+
+	                '</div>'+
+	            '</div>';
+			}
+			$('.content-holder').html(content);
 		});
 	}
 }

@@ -13,7 +13,7 @@
                     <label for="basic-input">No occupants</label>
                     @endif
                     @foreach($rows as $row)
-                    <label for="basic-input">{{ $row->patient_display_name }}</label>
+                    <label for="basic-input">{{ $row->patient_display_name }}</label><br>
                     @endforeach
                 </center>
             </div>
