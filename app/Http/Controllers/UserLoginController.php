@@ -38,6 +38,7 @@ class UserLoginController extends Controller
     	$username	= $request->username;
         $password   = $request->password;
 
+        Session::put('login_username', $username);
 
         $user_info  = Tbl_user::where('username',$username)->where('archived',0)->first();
 

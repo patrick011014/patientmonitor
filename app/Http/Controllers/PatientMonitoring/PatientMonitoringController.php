@@ -147,6 +147,15 @@ class PatientMonitoringController extends Patient
             $insert['arduino_key'] = $key;
         }
 
+        $counter = 0;
+        foreach(explode('/', $insert['arduino_key']) as $value)
+        {
+            if($value != '')
+            {
+                $counter++;
+            }
+        }
+
     	$rules['room_name']     = 'required';
     	$rules['room_type']     = 'required';
     	$rules['room_level']    = 'required';
@@ -155,7 +164,7 @@ class PatientMonitoringController extends Patient
 
     	$validator = Validator::make($insert, $rules);
 
-    	if($validator->fails())
+    	if($validator->fails() || $counter<$request->room_capacity)
     	{
     		$response["call_function"] = 'complete_fields';
     	}
@@ -196,9 +205,30 @@ class PatientMonitoringController extends Patient
         $rules['capacity']      = 'required';
         $rules['arduino_key']   = 'required';
 
+        if($request->room_type == 'Ward')
+        {
+            $key = '';
+            for($x=1;$x<=$request->room_capacity;$x++)
+            {
+                $index = "arduino_key".$x;
+                $key .= $request->$index ."/";
+            }
+            $update['arduino_key'] = $key;
+        }
+        $counter = 0;
+        foreach(explode('/', $update['arduino_key']) as $value)
+        {
+            if($value != '')
+            {
+                $counter++;
+            }
+        }
+        // dd($counter);
+        // dd(count(explode('/', $update['arduino_key'])));
+        // dd($update);
     	$validator = Validator::make($update, $rules);
 
-    	if($validator->fails())
+    	if($validator->fails() || $counter<$request->room_capacity)
     	{
     		$response["call_function"] = 'complete_fields';
             $response['status_message'] = '';
@@ -489,6 +519,7 @@ class PatientMonitoringController extends Patient
         $update['status'] = strtolower(request('action'));
         $update['room_id'] = 0;
         $update['sickness'] = '';
+        $update['bed_key'] = 'no_bed';
         Tbl_patient::where('patient_id',$id)->update($update);
     }
     public function getModifyPatient()
@@ -545,6 +576,49 @@ class PatientMonitoringController extends Patient
             }
         }
 
+        $count_first_floor = count($data['first_floor']);
+        $count_second_floor = count($data['second_floor']);
+
+        if($count_first_floor > 0)
+        {
+            // dd($data['first_floor']->first());
+            $data['room_type'] = $data['first_floor']->first()->room_type;
+            if($data['room_type'] == 'Ward')
+            {
+                $data['room_beds'] = explode('/', $data['first_floor']->first()->arduino_key);
+                $get_beds = Tbl_patient::where('room_id',$data['first_floor']->first()->room_id)->where('status','on_room')->get();
+                $beds = array();
+                foreach($get_beds as $bed)
+                {
+                    array_push($beds, $bed->bed_key);
+                }
+                $data['occupied_beds'] = $beds;
+            }
+        }
+        else if($count_second_floor > 0)
+        {
+            $data['room_type'] = $data['second_floor']->first()->room_type;
+            if($data['room_type'] == 'Ward')
+            {
+                $data['room_beds'] = explode('/', $data['second_floor']->first()->arduino_key);
+                $get_beds = Tbl_patient::where('room_id',$data['second_floor']->first()->room_id)->where('status','on_room')->get();
+                $beds = array();
+                foreach($get_beds as $bed)
+                {
+                    array_push($beds, $bed->bed_key);
+                }
+                $data['occupied_beds'] = $beds;
+            }
+        }
+        else
+        {
+            // dd(789);
+            // $data['room_type'] = 'no_room';
+            $data['no_room'] = "No room Available";
+        }
+
+
+
         return view('modals.patients.assign_room',$data);
     }
     public function postAssignRoom(Request $request)
@@ -552,16 +626,34 @@ class PatientMonitoringController extends Patient
         $update['room_id'] = $request->room_id;
         $update['status'] = 'on_room';
 
-        $patient = Tbl_patient::where('patient_id',$request->patient_id)->first();
+        $room = Tbl_rooms::where('room_id',$request->room_id)->first();
+        if($room->room_type != 'Ward')
+        {
+            $update['bed_key'] = $room->arduino_key;   
+        }
+        else
+        {
+            $update['bed_key'] = $request->bed_key;
+        }
 
-        Tbl_patient::where('patient_id',$request->patient_id)->update($update);
+        if($update['room_id'] == 'no_room')
+        {
+            $response['call_function'] = 'no_room';
+        }
+        else
+        {
+            $patient = Tbl_patient::where('patient_id',$request->patient_id)->first();
 
-        // archive old log
-        // dd($patient);
-        $archive['archived'] = 1;
-        Tbl_logs::where('patient_id',$request->patient_id)->where('room_id',$patient->room_id)->delete();
+            Tbl_patient::where('patient_id',$request->patient_id)->update($update);
 
-        $response['call_function'] = 'success';
+            // archive old log
+            // dd($patient);
+            $archive['archived'] = 1;
+            Tbl_logs::where('patient_id',$request->patient_id)->where('room_id',$patient->room_id)->delete();
+
+            $response['call_function'] = 'success';
+        }
+
         return json_encode($response);
     }
 }

@@ -60,7 +60,7 @@ function patient()
 
 			if(action == 'Archive' || action == 'Restore')
 			{
-				if(confirm('Are you sure you want to '+action+" this?"))
+				if(confirm('Are you sure you want to '+action.toLowerCase()+" this?"))
 				{
 					if(action == 'Restore')
 					{

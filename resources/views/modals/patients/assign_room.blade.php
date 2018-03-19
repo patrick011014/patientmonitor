@@ -10,6 +10,9 @@
             <div class="col-md-12">
                 <label>Room</label>
                 <select class="form-control rooms" name="room_id">
+                  @if(isset($no_room))
+                  <option value="no_room">{{$no_room}}</option>
+                  @else
                   <optgroup label="1st floor">
                       @foreach($first_floor as $room)
                       <option value="{{$room->room_id}}">{{$room->room_name}}</option>
@@ -20,16 +23,38 @@
                       <option value="{{$room->room_id}}">{{$room->room_name}}</option>
                       @endforeach
                   </optgroup>
+                  @endif
                 </select>
             </div>
         </div> 
+
+        @if(!isset($no_room))
+        @if($room_type == 'Ward')
+        <div class="form-group">
+            <div class="col-md-12">
+                <label>Bed No</label>
+                <select class="form-control bed-key" name="bed_key">
+                  @foreach($room_beds as $key => $value)
+                    @if($value != '')
+                      @if(!in_array($value, $occupied_beds))
+                      <option value="{{$value}}">Bed {{$key+1}}</option>
+                      @endif
+                    @endif
+                  @endforeach
+                </select>
+            </div>
+        </div>
+        @endif
+        @endif
 
 
 
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-def-white btn-custom-white" data-dismiss="modal">Close</button>
+        @if(!isset($no_room))
         <button class="btn btn-primary btn-custom-primary" type="submit">Assign</button>
+        @endif
     </div>
 </form>
 <script type="text/javascript">
@@ -46,6 +71,10 @@
     function not_match(data)
     {
         toastr.error("Password didn't match")
+    }
+    function no_room()
+    {
+      toastr.error('No room available');
     }
 </script>
 <script type="text/javascript">

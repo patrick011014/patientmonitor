@@ -34,7 +34,7 @@
 		          <div class="col-md-12">		            
 		            <div class="control-wrapper">
 		            	<label for="email" class="control-label fa-label"><i class="fa fa-user"></i></label>
-		            	<input name="username" type="text" class="form-control" id="email" placeholder="Username">
+		            	<input name="username" type="text" class="form-control" value="{{ Session::get('login_username') }}" id="email" placeholder="Username">
 		            </div>		            	            
 		          </div>              
 		        </div>
