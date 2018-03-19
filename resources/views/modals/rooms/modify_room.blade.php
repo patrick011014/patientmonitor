@@ -24,8 +24,8 @@
 
         <div class="form-group">
             <div class="col-md-6">
-                <label for="basic-input">Room Key</label>
-                <input value="{{ $row->arduino_key }}" autocomplete="off" id="basic-input" type="text" class="form-control" name="arduino_key">
+                <label for="basic-input">Room Capacity</label>
+                <input value="{{ $row->capacity }}" autocomplete="off" id="basic-input" type="text" class="form-control" name="room_capacity">
             </div>
             <div class="col-md-6">
                 <label for="basic-input">Room Level</label>
@@ -36,12 +36,29 @@
             </div>
         </div> 
 
+        @if($row->room_type != 'Ward')
         <div class="form-group">
             <div class="col-md-6">
-                <label for="basic-input">Room Capacity</label>
-                <input value="{{ $row->capacity }}" autocomplete="off" id="basic-input" type="text" class="form-control" name="room_capacity">
+                <label for="basic-input">Room Key</label>
+                <input value="{{ $row->arduino_key }}" autocomplete="off" id="basic-input" type="text" class="form-control" name="arduino_key">
             </div>
-        </div>  
+        </div> 
+        @endif
+
+        {{-- for ward only --}}
+        @if($row->room_type == 'Ward')
+        <div class="form-group">
+            @for($x=0;$x<count($beds);$x++)
+            @if($beds[$x] != '')
+            <div class="col-md-6">
+                <label for="basic-input">Bed {{$x+1}} Key</label>
+                <input value="{{ $beds[$x] }}" autocomplete="off" id="basic-input" type="text" class="form-control" name="arduino_key">
+            </div>
+            @endif
+            @endfor
+        </div> 
+        @endif
+
 
     </div>
     <div class="modal-footer">

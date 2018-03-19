@@ -74,7 +74,7 @@ class PatientMonitoringController extends Patient
         foreach($patient as $key => $value)
         {
             // dex
-            if($value->dex > 120)
+            if($value->dex > 120 || $value->dex == '')
             {
                 $patient[$key]->display_dex = "<font color='red'>Disconnected</font>";
             }
@@ -91,7 +91,7 @@ class PatientMonitoringController extends Patient
                 $patient[$key]->display_dex = $value->dex."%";;
             }
             // temp
-            if($value->temp > 100)
+            if($value->temp > 100 || $value->temp == '')
             {
                 $patient[$key]->display_temp = "<font color='red'>Disconnected</font>";
             }
@@ -177,6 +177,9 @@ class PatientMonitoringController extends Patient
     	$data['page'] 		= "Modify Room";
     	$data['row'] 		= Tbl_rooms::where('room_id',request('id'))->first();
     	$data['room_id'] 	= request('id');
+
+        $data['beds'] = explode('/', $data['row']->arduino_key);
+
     	return view('modals.rooms.modify_room',$data);
     }
     public function postModifyRoom(Request $request)
@@ -249,6 +252,26 @@ class PatientMonitoringController extends Patient
         {
             $counter = count(Tbl_patient::where('room_id',$value->room_id)->where('status','on_room')->get());
             $data['rows'][$key]->occupant = $counter;
+
+            // arduino key 
+            $explode_key = explode('/', $value->arduino_key);
+            if(count($explode_key)>1)
+            {
+                $data['rows'][$key]->display_arduino_key = '';
+                $x = 1;
+                foreach($explode_key as $value)
+                {
+                    if($value != '')
+                    {
+                        $data['rows'][$key]->display_arduino_key .= "Bed ".$x++.": "."<font color='red'>".$value."</font>"."<br>";
+                    }
+                }
+            }
+            else
+            {
+                $data['rows'][$key]->display_arduino_key = "<font color='red'>".$value->arduino_key."</font>";
+            }
+
         }
 
         return view("tables.rooms_table", $data);

@@ -20,11 +20,11 @@
     <tbody>
         @foreach($rows as $row)
         <tr id="{{ $row->room_id }}">
-            <td class="text-center">{{ $row->room_id }}</td>
-            <td class="text-center">{{ $row->room_name }}</td>
-            <td class="text-center">{{ $row->room_type }}</td>
-            <td class="text-center">{{ $row->room_level }}</td>
-            <td class="text-center">{{ $row->arduino_key }}</td>
+            <td class="text-center">{!! $row->room_id !!}</td>
+            <td class="text-center">{!! $row->room_name !!}</td>
+            <td class="text-center">{!! $row->room_type !!}</td>
+            <td class="text-center">{!! $row->room_level !!}</td>
+            <td class="text-center">{!! $row->display_arduino_key !!}</td>
             <td class="text-center"><a onclick="action_load_link_to_modal('/member/show-occupant?id={{$row->room_id}}','md')">{{ $row->occupant."/".$row->capacity }}</a></td>
             <td class="text-center">
                 <div class="btn-group">
