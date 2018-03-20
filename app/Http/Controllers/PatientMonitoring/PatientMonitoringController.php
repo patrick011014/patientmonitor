@@ -50,11 +50,43 @@ class PatientMonitoringController extends Patient
         }
         foreach($data['ward'] as $key => $value)
         {
-            $logs = Tbl_logs::where('arduino_key',$value->arduino_key)->first();
-            if($logs)
+            $beds = explode('/',$value->arduino_key);
+            // dd($beds);
+            // $patients_detail = 
+            foreach($beds as $arduino_key)
             {
-                $data['ward'][$key]->status = $logs->status;    
+                if($arduino_key != '')
+                {
+                    $logs = Tbl_logs::where('arduino_key',$arduino_key)->first();
+                    if($logs)
+                    {
+                        $data['ward'][$key]->status = 'normal';
+                        if($value->status == 'normal')
+                        {
+                            $data['ward'][$key]->status = $logs->status;
+                        }
+                    }
+                }
+
+                // $logs = Tbl_logs::where('arduino_key',$arduino_key)->first();
+                // if($value->status == 'normal' && $logs->status != 'normal')
+                // {
+                //     $data['ward'][$key]->status = $logs->status;
+                // }
+                // else
+                // {
+                //     $data['ward'][$key]->status = "normal";
+                // }
             }
+
+
+            // dd($data['ward']);
+            // old algorithm
+            // $logs = Tbl_logs::where('arduino_key',$value->arduino_key)->first();
+            // if($logs)
+            // {
+            //     $data['ward'][$key]->status = $logs->status;    
+            // }
             $occupants = Tbl_patient::where('room_id',$value->room_id)->where('status','on_room')->get();
             $data['ward'][$key]->occupant = count($occupants);
         }
@@ -67,7 +99,7 @@ class PatientMonitoringController extends Patient
     {
         $room = Tbl_rooms::where('room_id',request('id'))->first();
         $data['page'] = $room->room_name;
-
+        // dd($room);
         $patient = Tbl_patient::Logs()->where('tbl_patient.room_id',$room->room_id)->where('tbl_patient.status','on_room')->get();
         // dd($patient);
 

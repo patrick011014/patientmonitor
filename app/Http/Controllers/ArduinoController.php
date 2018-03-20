@@ -28,7 +28,26 @@ class ArduinoController extends Controller
             }
             $explode[3] = 60;
 
-            $room = Tbl_rooms::where('arduino_key',$explode[0])->first();
+            $arduino_key = $explode[0];
+
+            $rooms = Tbl_rooms::get();
+
+            foreach($rooms as $key => $value)
+            {
+                if($value->room_type == 'Ward')
+                {
+                    $explode_key = explode('/', $value->arduino_key);
+                    foreach($explode_key as $key)
+                    {
+                        if($key == $explode[0])
+                        {
+                            $arduino_key = $value->arduino_key;
+                        }
+                    }
+                }
+            }
+
+            $room = Tbl_rooms::where('arduino_key',$arduino_key)->first();
             $patient = Tbl_patient::where('room_id',$room->room_id)->where('status','on_room')->first();
 
             if($patient)
