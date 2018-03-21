@@ -8,6 +8,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Controllers\Patient;
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 use App\Models\Tbl_employee_info;
 use App\Models\Tbl_user;
 use App\Models\Tbl_rooms;
@@ -781,6 +783,15 @@ class PatientMonitoringController extends Patient
     }
     public function getAccountActivator()
     {
-        return 'show qr-code here';
+        $data['page'] = "Activator";
+        date_default_timezone_set('Asia/Manila');
+        $string = date_format(Carbon::now(), 'mdYhi');
+        $data['string'] = $string;
+        $data['qrcode'] = $this->QRCodeGenerator(500,$string);
+        return view('modals.doctors.activator',$data);
+    }
+    public function QRCodeGenerator($size,$string)
+    {
+        return QrCode::size($size)->generate($string);
     }
 }
