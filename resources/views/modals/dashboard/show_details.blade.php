@@ -5,7 +5,7 @@
         <h4 class="modal-title">{{$page}}</h4>
     </div>
     <div class="modal-body clearfix">
-
+        <input type="hidden" value="{{$room_id}}" name="room_id" class="room_id">
         <div class="form-group">
             <div class="col-md-12">
                 {{-- <center>
@@ -16,26 +16,9 @@
                     <label for="basic-input">{{ $row->patient_display_name }}</label>
                     @endforeach
                 </center> --}}
-                @foreach($patient as $value)
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>Patient's Name:</label>
-                        <label for="basic-input" >{{ $value->patient_display_name }}</label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Dextrose level:</label>
-                        <label for="basic-input" >{!! $value->display_dex !!}</label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Temperature:</label>
-                        <label for="basic-input" >{!! $value->display_temp !!}</label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Pulse:</label>
-                        <label for="basic-input" >{!! $value->display_pulse !!}</label>
-                    </div>
-                </div> 
-                @endforeach
+                <div class="load-patients-here">
+                    
+                </div>
             </div>
         </div>
 
@@ -59,5 +42,33 @@
     function invalid_capacity(data)
     {
         toastr.error("Invalid Room Capacity");
+    }
+</script>
+<script type="text/javascript">
+    var x = null;
+    $(document).ready(function()
+    {
+        x = setInterval(function()
+        {
+            action_load_table();
+        },1000);
+    });
+    function action_load_table()
+    {
+        var id = $('.room_id').val();
+        $.ajax(
+        {
+            url: '/member/patient-details',
+            type: 'get',
+            data: 'id='+id,
+            success: function(data)
+            {
+                $('.load-patients-here').html(data);
+            }
+        });
+        if(!$.isNumeric(id))
+        {
+            clearTimeout(x);
+        }
     }
 </script>

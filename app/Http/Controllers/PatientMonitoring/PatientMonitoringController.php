@@ -53,6 +53,7 @@ class PatientMonitoringController extends Patient
             $beds = explode('/',$value->arduino_key);
             // dd($beds);
             // $patients_detail = 
+            $data['ward'][$key]->status = 'normal';
             foreach($beds as $arduino_key)
             {
                 // $is_all_connected = true;
@@ -61,7 +62,6 @@ class PatientMonitoringController extends Patient
                     $logs = Tbl_logs::where('arduino_key',$arduino_key)->first();
                     if($logs)
                     {
-                        $data['ward'][$key]->status = 'normal';
                         if($value->status == 'normal')
                         {
                             $data['ward'][$key]->status = $logs->status;
@@ -99,6 +99,7 @@ class PatientMonitoringController extends Patient
     public function getShowPatientDetails()
     {
         $room = Tbl_rooms::where('room_id',request('id'))->first();
+        $data['room_id'] = request('id');
         $data['page'] = $room->room_name;
         // dd($room);
         $patient = Tbl_patient::Logs()->where('tbl_patient.room_id',$room->room_id)->where('tbl_patient.status','on_room')->get();
@@ -147,6 +148,61 @@ class PatientMonitoringController extends Patient
         $data['patient'] = $patient;
 
         return view('modals.dashboard.show_details',$data);
+    }
+    public function getPatientDetails()
+    {
+        $room = Tbl_rooms::where('room_id',request('id'))->first();
+        $data['room_id'] = request('id');
+        $data['page'] = $room->room_name;
+        // dd($room);
+        $patient = Tbl_patient::Logs()->where('tbl_patient.room_id',$room->room_id)->where('tbl_patient.status','on_room')->get();
+        // dd($patient);
+
+        foreach($patient as $key => $value)
+        {
+            // dex
+            if($value->dex > 120 || $value->dex == '')
+            {
+                $patient[$key]->display_dex = "<font color='red'>Disconnected</font>";
+            }
+            else if($value->dex <=120 && $value->dex >=100)
+            {
+                $patient[$key]->display_dex = "100%";
+            }
+            else if($value->dex < 0)
+            {
+                $patient[$key]->display_dex = "0%";
+            }
+            else
+            {
+                $patient[$key]->display_dex = $value->dex."%";;
+            }
+            // temp
+            if($value->temp > 100 || $value->temp == '')
+            {
+                $patient[$key]->display_temp = "<font color='red'>Disconnected</font>";
+            }
+            else
+            {
+                $patient[$key]->display_temp = $value->temp."&deg;C";
+            }
+            // pulse
+            if($value->pulse == '' || $value->pulse == 'Disconnected')
+            {
+                $patient[$key]->display_pulse = "<font color='red'>Disconnected</font>";
+            }
+            else
+            {
+                $patient[$key]->display_pulse = $value->pulse." BPM";
+            }
+        }
+
+
+        $data['patient'] = $patient;
+        date_default_timezone_set('Asia/Manila');
+        $data['date'] =  date_format(Carbon::now(),"m/d/Y");
+        $data['time'] =  date_format(Carbon::now(),"h:i:s A");
+        return view('modals.dashboard.patient_details',$data);
     }
     public function getRooms()
     {
