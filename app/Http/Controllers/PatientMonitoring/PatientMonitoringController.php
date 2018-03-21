@@ -55,6 +55,7 @@ class PatientMonitoringController extends Patient
             // $patients_detail = 
             foreach($beds as $arduino_key)
             {
+                // $is_all_connected = true;
                 if($arduino_key != '')
                 {
                     $logs = Tbl_logs::where('arduino_key',$arduino_key)->first();
@@ -132,13 +133,13 @@ class PatientMonitoringController extends Patient
                 $patient[$key]->display_temp = $value->temp."&deg;C";
             }
             // pulse
-            if($value->pulse == '')
+            if($value->pulse == '' || $value->pulse == 'Disconnected')
             {
                 $patient[$key]->display_pulse = "<font color='red'>Disconnected</font>";
             }
             else
             {
-                $patient[$key]->display_pulse = $value->pulse."BPM";
+                $patient[$key]->display_pulse = $value->pulse." BPM";
             }
         }
 

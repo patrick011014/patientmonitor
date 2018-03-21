@@ -26,7 +26,7 @@ class ArduinoController extends Controller
                     $explode[$x] = "0";
                 }
             }
-            $explode[3] = 60;
+            // $explode[3] = 60;
 
             $arduino_key = $explode[0];
 
@@ -87,13 +87,13 @@ class ArduinoController extends Controller
 
     	foreach($arr as $key => $value)
     	{
-    		if(isset($explode[$key]))
+    		if(isset($explode[$key]) && $explode[$key] != '')
     		{
     			$insert[$value] = $explode[$key];
     		}
     		else
     		{
-    			$insert[$value] = '0';
+    			$insert[$value] = '';
     		}
     	}
 
