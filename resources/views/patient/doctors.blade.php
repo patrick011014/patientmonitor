@@ -32,7 +32,7 @@
     <ul class="nav nav-tabs">
         <li class="active change-tab pending-tab cursor-pointer" mode="0"><a class="cursor-pointer"><i class="fa fa-check"></i> Active</a></li>
         <li class="cursor-pointer change-tab approve-tab" mode="1"><a class="cursor-pointer"><i class="fa fa-archive"></i> Archived</a></li>
-        <li class="pull-right" style="padding: 5px;"><button onclick="action_load_link_to_modal('/member/add-user', 'md')" class="btn btn-primary"><i class="fa fa-user"></i> Create Account</button></li>
+        <li class="pull-right" style="padding: 5px;"><button onclick="action_load_link_to_modal('/member/account-activator', 'md')" class="btn btn-primary"><i class="fa fa-qrcode"></i> Account Activator</button></li>
     </ul>
     <div class="search-filter-box">
         {{-- <div class="col-md-3" style="padding: 10px">
@@ -54,7 +54,7 @@
         <div class="col-md-4" style="padding: 10px">
             <div class="input-group">
                 <span style="background-color: #fff; cursor: pointer;" class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
-                <input type="text" class="form-control search" placeholder="Search by username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control search" placeholder="Search by name" aria-describedby="basic-addon1">
             </div>
         </div>
     </div>
@@ -76,5 +76,6 @@
 </div>
 @endsection
 @section('scripts')
-<script type="text/javascript" src="/assets/member/accounts.js"></script>
+{{-- <script type="text/javascript" src="/assets/member/rooms.js"></script> --}}
+<script type="text/javascript" src="/assets/member/doctors.js"></script>
 @endsection

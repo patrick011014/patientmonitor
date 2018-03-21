@@ -16,6 +16,10 @@
         <label>Pulse:</label>
         <label for="basic-input" >{!! $value->display_pulse !!}</label>
     </div>
+    <div class="col-md-12">
+        {{-- <label>Pulse:</label> --}}
+        <label for="basic-input" >{!! $value->date_created !!}</label>
+    </div>
 </div> 
 @endforeach
 <div class="pull-right">

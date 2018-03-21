@@ -48,6 +48,7 @@
     var x = null;
     $(document).ready(function()
     {
+        $(".load-patients-here").html('<div style="padding: 80px; text-align: center; font-size: 20px;"><i class="fa fa-spinner fa-spin fa-fw"></i></div>');
         x = setInterval(function()
         {
             action_load_table();

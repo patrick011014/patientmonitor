@@ -32,7 +32,7 @@
     <ul class="nav nav-tabs">
         <li class="active change-tab pending-tab cursor-pointer" mode="0"><a class="cursor-pointer"><i class="fa fa-check"></i> Active</a></li>
         <li class="cursor-pointer change-tab approve-tab" mode="1"><a class="cursor-pointer"><i class="fa fa-archive"></i> Archived</a></li>
-        <li class="pull-right"><button onclick="action_load_link_to_modal('/member/add-room', 'md')" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add Room</button></li>
+        <li class="pull-right" style="padding: 5px;"><button onclick="action_load_link_to_modal('/member/add-room', 'md')" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add Room</button></li>
     </ul>
     <div class="search-filter-box">
         <div class="col-md-3" style="padding: 10px">

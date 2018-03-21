@@ -7,6 +7,7 @@ use App\Models\Tbl_user;
 use App\Models\Tbl_rooms;
 use App\Models\Tbl_patient;
 use App\Models\Tbl_logs;
+use Carbon\Carbon;
 
 class ArduinoController extends Controller
 {
@@ -130,6 +131,8 @@ class ArduinoController extends Controller
     	}
 
     	$insert['status'] = $status;
+        date_default_timezone_set('Asia/Manila');
+        $insert['date_created'] = date_format(Carbon::now(),"m/d/Y h:i A");
 
     	return $insert;
     }

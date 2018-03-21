@@ -92,6 +92,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
           <div class="modal-dialog">
               <!-- Modal content-->
               <div class="modal-content modal-content-global">
+                
               </div>
           </div>
       </div>

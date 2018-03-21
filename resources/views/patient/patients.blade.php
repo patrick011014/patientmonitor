@@ -33,7 +33,7 @@
         <li class="active change-tab pending-tab cursor-pointer" mode="on_room"><a class="cursor-pointer"><i class="fa fa-building"></i> On Room</a></li>
         <li class="cursor-pointer change-tab approve-tab" mode="pending"><a class="cursor-pointer"><i class="fa fa-pause"></i> Pending</a></li>
         <li class="cursor-pointer change-tab approve-tab" mode="archived"><a class="cursor-pointer"><i class="fa fa-archive"></i> Archived</a></li>
-        <li class="pull-right"><button onclick="action_load_link_to_modal('/member/add-patient', 'md')" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add Patient</button></li>
+        <li class="pull-right" style="padding: 5px;"><button onclick="action_load_link_to_modal('/member/add-patient', 'md')" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add Patient</button></li>
     </ul>
     <div class="search-filter-box">
         {{-- <div class="col-md-3" style="padding: 10px">

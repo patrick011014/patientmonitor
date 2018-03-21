@@ -13,6 +13,7 @@ use App\Models\Tbl_user;
 use App\Models\Tbl_rooms;
 use App\Models\Tbl_patient;
 use App\Models\Tbl_logs;
+use App\Models\Tbl_doctors;
 
 use Illuminate\Http\Request;
 
@@ -744,5 +745,42 @@ class PatientMonitoringController extends Patient
         }
 
         return json_encode($response);
+    }
+    public function getDoctors()
+    {
+        $data['page'] = "Doctors";
+        // dd(Crypt::decrypt('eyJpdiI6IjdtaFBsbzVtenZZTUFXdkZtU3VqMEE9PSIsInZhbHVlIjoiQ1NiZnlwY08zdVJtNDZ3MytqYU1LQT09IiwibWFjIjoiZTM5MGFmYTY0OWJlZTM0OGY0YzU0NjViYWU5MGRmNDhlZjVlOTA4MmNlN2I2YTE2ZGQyNjQzNTFhY2M0YjQ1OCJ9 '));
+        return view('patient.doctors',$data);
+    }
+    public function getDoctorsTable()
+    {
+        $data['page'] = "Doctors Table";
+        $query = Tbl_doctors::where('archived',request('activetab'))->where('archived',request('activetab'));
+
+        if(request('search') != '')
+        {
+            $query->where('display_name','LIKE',"%".request('search')."%");
+        }
+
+        $data['rows'] = $query->get();
+        return view('tables.doctors_table',$data);
+    }
+    public function getArchiveDoctor()
+    {
+        $action = request('action');
+        $id = request('id');
+        if($action == 'Archive')
+        {
+            $update['archived'] = 1;
+        }
+        else
+        {
+            $update['archived'] = 0;
+        }
+        Tbl_doctors::where('doctor_id',$id)->update($update);    
+    }
+    public function getAccountActivator()
+    {
+        return 'show qr-code here';
     }
 }
