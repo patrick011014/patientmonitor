@@ -70,12 +70,12 @@ class UserLoginController extends Controller
     }
     public function generateUsername($firstname,$lastname,$user_id)
     {
-    	$placeholder = "";
-    	if($user_id<10)
-    	{
-    		$placeholder = "0";
-    	}
-    	$username = $firstname . substr($lastname, 0,2) . $placeholder . $user_id;
-    	return $username;
+        $placeholder = "";
+        if($user_id<10)
+        {
+            $placeholder = "0";
+        }
+        $username = str_replace(' ', '', strtolower($firstname)) . str_replace(' ', '', strtolower(substr($lastname, 0,2))) . $placeholder . $user_id;
+        return $username;
     }
 }

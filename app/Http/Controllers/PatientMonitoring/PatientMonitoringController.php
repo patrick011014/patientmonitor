@@ -16,6 +16,7 @@ use App\Models\Tbl_rooms;
 use App\Models\Tbl_patient;
 use App\Models\Tbl_logs;
 use App\Models\Tbl_doctors;
+use App\Models\Tbl_activation_codes;
 
 use Illuminate\Http\Request;
 
@@ -784,13 +785,32 @@ class PatientMonitoringController extends Patient
     public function getAccountActivator()
     {
         $data['page'] = "Activator";
-        date_default_timezone_set('Asia/Manila');
-        $string = date_format(Carbon::now(), 'mdYhi');
-        $data['string'] = $string;
-        $data['qrcode'] = $this->QRCodeGenerator(500,$string);
         return view('modals.doctors.activator',$data);
     }
-    public function QRCodeGenerator($size,$string)
+    public function getActivationCode()
+    {
+        $activation_code = Tbl_activation_codes::where('used','unused')->first();
+        
+        if(!$activation_code)
+        {
+            $activation_id = $this->GenerateActivationCode();
+            $activation_code = Tbl_activation_codes::where('activation_id',$activation_id)->first();
+        }
+
+        return $this->QRCodeGenerator($activation_code->activation_code);
+    }
+    public function GenerateActivationCode()
+    {
+        date_default_timezone_set('Asia/Manila');
+
+        $activation_code = date_format(Carbon::now(), 'mdYhis');
+        $insert['activation_code'] = $activation_code;
+
+        $activation_id = Tbl_activation_codes::insertGetId($insert);
+
+        return $activation_id;
+    }
+    public function QRCodeGenerator($string,$size = 500)
     {
         return QrCode::size($size)->generate($string);
     }

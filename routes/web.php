@@ -16,6 +16,7 @@ Route::get('/','UserLoginController@index');
 Route::post('/login','UserLoginController@login');
 Route::any('/logout','UserLoginController@logout');
 AdvancedRoute::controller('/member', 'PatientMonitoring\PatientMonitoringController');
+AdvancedRoute::controller('/android', 'DoctorAppController');
 Route::any('/arduino/insert','ArduinoController@index');
 
 // patient monitoring end
