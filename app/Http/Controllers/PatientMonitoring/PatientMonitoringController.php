@@ -575,6 +575,7 @@ class PatientMonitoringController extends Patient
     public function getAddPatient()
     {
         $data['page'] = 'Add Patient';
+        $data['doctors'] = Tbl_doctors::where('archived',0)->get();
         return view('modals.patients.add_patient',$data);
     }
     public function postAddPatient(Request $request)
@@ -586,6 +587,7 @@ class PatientMonitoringController extends Patient
         $insert['room_id'] = 0;
         $insert['status'] = 'pending';
         $insert['patient_display_name'] = $request->first_name." ".$request->last_name;
+        $insert['doctor_id'] = $request->doctor_id;
 
         if($request->sickness == '')
         {
@@ -631,6 +633,7 @@ class PatientMonitoringController extends Patient
     {
         $data['page'] = 'Modify Patient';
         $data['row'] = Tbl_patient::where('patient_id',request('id'))->first();
+        $data['doctors'] = Tbl_doctors::where('archived',0)->get();
         return view('modals.patients.modify_patient',$data);
     }
     public function postModifyPatient(Request $request)
@@ -639,9 +642,19 @@ class PatientMonitoringController extends Patient
         $update['last_name'] = $request->last_name;
         $update['middle_name'] = $request->middle_name;
         $update['sickness'] = $request->sickness;
+        $update['doctor_id'] = $request->doctor_id;
 
         $rules['first_name'] = 'required';
         $rules['last_name'] = 'required';
+
+        if($update['middle_name'] == '')
+        {
+            $update['middle_name'] = '';
+        }
+        if($update['sickness'] == '')
+        {
+            $update['sickness'] = 'N/A';
+        }
 
         $validator = Validator::make($update,$rules);
 

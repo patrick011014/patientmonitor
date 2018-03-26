@@ -115,7 +115,7 @@ class DoctorAppController extends Controller
     }
     public function getDashboard()
     {
-    	$patients = Tbl_patient::where('status','on_room')->get();
+    	$patients = Tbl_patient::where('status','on_room')->where('doctor_id',request('id'))->get();
     	foreach($patients as $key => $value)
     	{
     		$log = Tbl_logs::where('room_id',$value->room_id)->where('arduino_key',$value->bed_key)->first();

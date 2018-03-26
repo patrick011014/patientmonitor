@@ -26,7 +26,19 @@
                 <label for="basic-input">Sickness</label>
                 <input value="{{ $row->sickness }}" autocomplete="off" type="text" class="form-control" name="sickness">
             </div>
-        </div>   
+        </div>  
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="basic-input">Doctor</label>
+                <select class="form-control doctors" name="doctor_id">
+                  <option value="0">No doctor</option>
+                  @foreach($doctors as $doctor)
+                  <option @if($row->doctor_id == $doctor->doctor_id) selected @endif value="{{$doctor->doctor_id}}">{{$doctor->display_name}}</option>
+                  @endforeach
+                </select>
+            </div>
+        </div> 
 
 
 

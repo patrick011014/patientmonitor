@@ -28,6 +28,18 @@
             </div>
         </div>   
 
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="basic-input">Doctor</label>
+                <select class="form-control doctors" name="doctor_id">
+                  <option value="0">No doctor</option>
+                  @foreach($doctors as $doctor)
+                  <option value="{{$doctor->doctor_id}}">{{$doctor->display_name}}</option>
+                  @endforeach
+                </select>
+            </div>
+        </div>
+
 
 
     </div>
@@ -51,4 +63,10 @@
     {
         toastr.error("Password didn't match")
     }
+</script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('.doctors').select2();
+    });
 </script>
