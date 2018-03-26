@@ -9,6 +9,7 @@ use Crypt;
 use App\Models\Tbl_doctors;
 use App\Models\Tbl_patient;
 use App\Models\Tbl_logs;
+use App\Models\Tbl_rooms;
 use App\Models\Tbl_activation_codes;
 
 class DoctorAppController extends Controller
@@ -111,6 +112,58 @@ class DoctorAppController extends Controller
     {
     	$patient_id = request('id');
     	$query = Tbl_patient::where('patient_id',$patient_id)->first();
+    	$log = Tbl_logs::where('patient_id',$query->patient_id)->where('arduino_key',$query->bed_key)->orderBy('date_created','DESC')->first();
+    	// dd($query);
+    	$query->room_name = Tbl_rooms::where('room_id',$query->room_id)->first()->room_name;
+    	if($log)
+    	{
+    		$query->dex = $log->dex;
+	    	$query->temp = $log->temp;
+	    	$query->pulse = $log->pulse;
+    	}
+    	else
+    	{
+    		$query->dex = '';
+	    	$query->temp = '';
+	    	$query->pulse = '';
+    	}
+
+    	// dex
+        if($query->dex > 120 || $query->dex == '')
+        {
+            $query->dex = "Disconnected";
+        }
+        else if($query->dex <=120 && $query->dex >=100)
+        {
+            $query->dex = "100%";
+        }
+        else if($query->dex < 0)
+        {
+            $query->dex = "0%";
+        }
+        else
+        {
+            $query->dex = $query->dex."%";;
+        }
+        // temp
+        if($query->temp > 100 || $query->temp == '')
+        {
+            $query->temp = "Disconnected";
+        }
+        else
+        {
+            $query->temp = $query->temp."°C";
+        }
+        // pulse
+        if($query->pulse == '' || $query->pulse == 'Disconnected')
+        {
+            $query->pulse = "Disconnected";
+        }
+        else
+        {
+            $query->pulse = $query->pulse." BPM";
+        }
+
     	return '['.json_encode($query).']';
     }
     public function getDashboard()
