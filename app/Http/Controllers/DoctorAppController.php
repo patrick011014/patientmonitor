@@ -8,6 +8,7 @@ use Crypt;
 
 use App\Models\Tbl_doctors;
 use App\Models\Tbl_patient;
+use App\Models\Tbl_logs;
 use App\Models\Tbl_activation_codes;
 
 class DoctorAppController extends Controller
@@ -114,10 +115,19 @@ class DoctorAppController extends Controller
     }
     public function getDashboard()
     {
-    	$patients = Tbl_patient::get();
+    	$patients = Tbl_patient::where('status','on_room')->get();
     	foreach($patients as $key => $value)
     	{
-    		$patients[$key]->status = "emergency";
+    		$log = Tbl_logs::where('room_id',$value->room_id)->where('arduino_key',$value->bed_key)->first();
+    		// dd($log);
+    		if($log)
+    		{
+    			$patients[$key]->status = $log->status;
+    		}
+    		else
+    		{
+    			$patients[$key]->status = '';
+    		}
     	}
     	return json_encode($patients);
     }

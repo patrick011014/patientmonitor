@@ -587,6 +587,15 @@ class PatientMonitoringController extends Patient
         $insert['status'] = 'pending';
         $insert['patient_display_name'] = $request->first_name." ".$request->last_name;
 
+        if($request->sickness == '')
+        {
+            $insert['sickness'] = "N/A";
+        }
+        if($request->middle_name == '')
+        {
+            $insert['middle_name'] = 'no_middle_name';
+        }
+
         $rules['first_name'] = 'required';
         $rules['last_name'] = 'required';
         $rules['middle_name'] = 'required';
@@ -603,6 +612,9 @@ class PatientMonitoringController extends Patient
             Tbl_patient::insert($insert);
             $response['call_function'] = 'success';
         }
+        // fix middle name
+        $update['middle_name'] = '';
+        Tbl_patient::where('middle_name','no_middle_name')->update($update);
         return json_encode($response);
 
     }
