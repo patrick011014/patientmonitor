@@ -28,6 +28,7 @@
             </div>
         </div> 
 
+        <div class="load-beds-here">
         @if(!isset($no_room))
         @if($room_type == 'Ward')
         <div class="form-group">
@@ -46,6 +47,7 @@
         </div>
         @endif
         @endif
+        </div>
 
 
 
@@ -82,4 +84,23 @@
     {
         $('.rooms').select2();
     });
+</script>
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+    $('.rooms').change(function()
+    {
+      var id = $('.rooms').val();
+      $.ajax(
+      {
+        url:'/member/ward-beds',
+        type:'get',
+        data:'id='+id,
+        success:function(data)
+        {
+          $('.load-beds-here').html(data);
+        }
+      });
+    });
+  });
 </script>

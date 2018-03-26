@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Crypt;
 
 use App\Models\Tbl_doctors;
+use App\Models\Tbl_patient;
 use App\Models\Tbl_activation_codes;
 
 class DoctorAppController extends Controller
@@ -27,10 +28,10 @@ class DoctorAppController extends Controller
     	{
     		if($password == Crypt::decrypt($query->password))
 			{
+				$query->raw_pass = Crypt::decrypt($query->password);
 				$return = '['.json_encode($query).']';
 			}
     	}
-
 		return $return;
     }
     public function getRegister()
@@ -76,5 +77,48 @@ class DoctorAppController extends Controller
         }
         $username = str_replace(' ', '', strtolower($firstname)) . str_replace(' ', '', strtolower(substr($lastname, 0,2))) . $placeholder . $user_id;
         return $username;
+    }
+    public function getUpdateContact()
+    {
+    	$doctor_id = request('id');
+    	$update['contact_number'] = request('contact');
+    	$return = Tbl_doctors::where('doctor_id',$doctor_id)->update($update);
+    	if($return)
+    	{
+    		return 'success';
+    	}
+    	else
+    	{
+    		return 'error';
+    	}
+    }
+    public function getUpdatePassword()
+    {
+    	$doctor_id = request('id');
+    	$update['password'] = Crypt::encrypt(request('password'));
+    	$return = Tbl_doctors::where('doctor_id',$doctor_id)->update($update);
+    	if($return)
+    	{
+    		return 'success';
+    	}
+    	else
+    	{
+    		return 'error';
+    	}
+    }
+    public function getPatientInfo()
+    {
+    	$patient_id = request('id');
+    	$query = Tbl_patient::where('patient_id',$patient_id)->first();
+    	return '['.json_encode($query).']';
+    }
+    public function getDashboard()
+    {
+    	$patients = Tbl_patient::get();
+    	foreach($patients as $key => $value)
+    	{
+    		$patients[$key]->status = "emergency";
+    	}
+    	return json_encode($patients);
     }
 }

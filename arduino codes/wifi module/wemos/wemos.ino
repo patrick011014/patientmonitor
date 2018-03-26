@@ -2,8 +2,10 @@
 #include <ESP8266HTTPClient.h>
 
 // Wifi module credentials
-const char* ssid = "81d6b1";
-const char* password = "241529861";
+const char* ssid = "PLDTHOMEFIBR06348";
+const char* password = "PLDTWIFISfx1x";
+
+String ip = "192.168.1.6";
 
 // Holds data from arduino
 char command;
@@ -62,7 +64,7 @@ void sendDataToBeInserted()
   {   
  
     HTTPClient http;
-    String url = "http://192.168.0.14/arduino/insert?data="+string;
+    String url = "http://"+ip+"/arduino/insert?data="+string;
     http.begin(url);
     int httpCode = http.GET();
     String response = http.getString();

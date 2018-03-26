@@ -710,8 +710,6 @@ class PatientMonitoringController extends Patient
             $data['no_room'] = "No room Available";
         }
 
-
-
         return view('modals.patients.assign_room',$data);
     }
     public function postAssignRoom(Request $request)
@@ -748,6 +746,30 @@ class PatientMonitoringController extends Patient
         }
 
         return json_encode($response);
+    }
+    public function getWardBeds()
+    {
+        $data['page'] = 'Ward Beds';
+        $room_id = request('id');
+
+        $room = Tbl_rooms::where('room_id',$room_id)->first();
+
+        $data['room_type'] = $room->room_type;
+
+        if($data['room_type'] == 'Ward')
+        {
+            $data['room_beds'] = explode('/', $room->arduino_key);
+            $get_beds = Tbl_patient::where('room_id',$room->room_id)->where('status','on_room')->get();
+            $beds = array();
+            foreach($get_beds as $bed)
+            {
+                array_push($beds, $bed->bed_key);
+            }
+            $data['occupied_beds'] = $beds;
+        }
+
+
+        return view('tables.ward_beds',$data);
     }
     public function getDoctors()
     {
