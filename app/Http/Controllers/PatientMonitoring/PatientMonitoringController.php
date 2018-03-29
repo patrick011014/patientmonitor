@@ -580,14 +580,14 @@ class PatientMonitoringController extends Patient
     }
     public function postAddPatient(Request $request)
     {
-        $insert['first_name'] = $request->first_name;
-        $insert['last_name'] = $request->last_name;
-        $insert['middle_name'] = $request->middle_name;
-        $insert['sickness'] = $request->sickness;
-        $insert['room_id'] = 0;
-        $insert['status'] = 'pending';
-        $insert['patient_display_name'] = $request->first_name." ".$request->last_name;
-        $insert['doctor_id'] = $request->doctor_id;
+        $insert['first_name']               = $request->first_name;
+        $insert['last_name']                = $request->last_name;
+        $insert['middle_name']              = $request->middle_name;
+        $insert['sickness']                 = $request->sickness;
+        $insert['room_id']                  = 0;
+        $insert['status']                   = 'pending';
+        $insert['patient_display_name']     = $request->first_name." ".$request->last_name;
+        $insert['doctor_id']                = $request->doctor_id;
 
         if($request->sickness == '')
         {
@@ -598,10 +598,10 @@ class PatientMonitoringController extends Patient
             $insert['middle_name'] = 'no_middle_name';
         }
 
-        $rules['first_name'] = 'required';
-        $rules['last_name'] = 'required';
-        $rules['middle_name'] = 'required';
-        $rules['sickness'] = 'required';
+        $rules['first_name']    = 'required';
+        $rules['last_name']     = 'required';
+        $rules['middle_name']   = 'required';
+        $rules['sickness']      = 'required';
 
         $validator = Validator::make($insert,$rules);
 
@@ -622,27 +622,28 @@ class PatientMonitoringController extends Patient
     }
     public function getArchivePatient()
     {
-        $id = request('id');
-        $update['status'] = strtolower(request('action'));
-        $update['room_id'] = 0;
-        $update['sickness'] = '';
-        $update['bed_key'] = 'no_bed';
+        $id                     = request('id');
+        $update['status']       = strtolower(request('action'));
+        $update['room_id']      = 0;
+        $update['sickness']     = '';
+        $update['bed_key']      = 'no_bed';
+        $update['doctor_id']    = 0;
         Tbl_patient::where('patient_id',$id)->update($update);
     }
     public function getModifyPatient()
     {
-        $data['page'] = 'Modify Patient';
-        $data['row'] = Tbl_patient::where('patient_id',request('id'))->first();
-        $data['doctors'] = Tbl_doctors::where('archived',0)->get();
+        $data['page']       = 'Modify Patient';
+        $data['row']        = Tbl_patient::where('patient_id',request('id'))->first();
+        $data['doctors']    = Tbl_doctors::where('archived',0)->get();
         return view('modals.patients.modify_patient',$data);
     }
     public function postModifyPatient(Request $request)
     {
-        $update['first_name'] = $request->first_name;
-        $update['last_name'] = $request->last_name;
-        $update['middle_name'] = $request->middle_name;
-        $update['sickness'] = $request->sickness;
-        $update['doctor_id'] = $request->doctor_id;
+        $update['first_name']   = $request->first_name;
+        $update['last_name']    = $request->last_name;
+        $update['middle_name']  = $request->middle_name;
+        $update['sickness']     = $request->sickness;
+        $update['doctor_id']    = $request->doctor_id;
 
         $rules['first_name'] = 'required';
         $rules['last_name'] = 'required';
@@ -671,10 +672,10 @@ class PatientMonitoringController extends Patient
     }
     public function getAssignRoom()
     {
-        $data['page'] = "Assign Room";
-        $data['patient_id'] = request('id');
-        $data['first_floor'] = Tbl_rooms::where('room_level','1st floor')->where('archived',0)->orderBy('room_name')->get();
-        $data['second_floor'] = Tbl_rooms::where('room_level','2nd floor')->where('archived',0)->orderBy('room_name')->get();
+        $data['page']           = "Assign Room";
+        $data['patient_id']     = request('id');
+        $data['first_floor']    = Tbl_rooms::where('room_level','1st floor')->where('archived',0)->orderBy('room_name')->get();
+        $data['second_floor']   = Tbl_rooms::where('room_level','2nd floor')->where('archived',0)->orderBy('room_name')->get();
 
         foreach($data['first_floor'] as $key => $value)
         {
@@ -739,8 +740,8 @@ class PatientMonitoringController extends Patient
     }
     public function postAssignRoom(Request $request)
     {
-        $update['room_id'] = $request->room_id;
-        $update['status'] = 'on_room';
+        $update['room_id']  = $request->room_id;
+        $update['status']   = 'on_room';
 
         $room = Tbl_rooms::where('room_id',$request->room_id)->first();
         if($room->room_type != 'Ward')
