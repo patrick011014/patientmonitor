@@ -1,5 +1,5 @@
 var patient = new patient();
-
+var x = null;
 function patient()
 {
 	init();
@@ -21,6 +21,7 @@ function patient()
 		action_load_table();
 		event_change_tab();
 		event_action();
+		event_search();
 	}
 	function action_table_loader()
 	{
@@ -30,11 +31,12 @@ function patient()
 	{
 		action_table_loader();
 		var status = $('.change-tab.active').attr('mode');
+		var key = $('.search').val();
 		$.ajax(
 		{
 			url: '/member/patient-table',
 			type: 'get',
-			data: 'status='+status,
+			data: 'status='+status+"&search="+key,
 			success:function(data)
 			{
 				$('.load-table-here').html(data);
@@ -91,6 +93,21 @@ function patient()
 			{
 				action_load_link_to_modal('/member/assign-room?id='+id,'md');
 			}
+
+		});
+	}
+	function event_search()
+	{
+		$('.search').keyup(function()
+		{
+
+			action_table_loader();
+			clearTimeout(x);
+
+			x = setTimeout(function()
+			{
+				action_load_table();
+			},1000);
 
 		});
 	}
