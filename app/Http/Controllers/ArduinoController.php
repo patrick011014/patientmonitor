@@ -7,6 +7,8 @@ use App\Models\Tbl_user;
 use App\Models\Tbl_rooms;
 use App\Models\Tbl_patient;
 use App\Models\Tbl_logs;
+use App\Models\Tbl_notification;
+use App\Models\Tbl_doctors;
 use Carbon\Carbon;
 
 class ArduinoController extends Controller
@@ -73,6 +75,24 @@ class ArduinoController extends Controller
             }
         }
 
+        if(isset($insert))
+        {
+            if($insert['status'] == 'emergency')
+            {
+                $patient        = Tbl_patient::where('patient_id',$insert['patient_id'])->first();
+                $active_notif   = count(Tbl_notification::where('patient_id',$insert['patient_id'])->where('doctor_id',$patient->doctor_id)->where('notified',0)->get());
+                if($active_notif < 1)
+                {
+                    date_default_timezone_set('Asia/Manila');
+                    $insert_notif['patient_id']     = $insert['patient_id'];
+                    $insert_notif['doctor_id']      = $patient->doctor_id;
+                    $insert_notif['message']        = $this->notificationGenerator($insert);
+                    $insert_notif['room_id']        = $patient->room_id;
+                    $insert_notif['date_created']   = Carbon::now();
+                    Tbl_notification::insert($insert_notif);
+                }
+            }
+        }
     	
 
     	return view('patient.arduino',$data);
@@ -135,5 +155,17 @@ class ArduinoController extends Controller
         $insert['date_created'] = date_format(Carbon::now(),"m/d/Y h:i A");
 
     	return $insert;
+    }
+    function notificationGenerator($details)
+    {
+        $patient = Tbl_patient::where('patient_id',$details['patient_id'])->first();
+        $room = Tbl_rooms::where('room_id',$patient->room_id)->first();
+        $message = '';
+// your patient patrick manarang, dextrose level is 100%, temperature is 35°C, and pulse is 60 BMP
+        $message .= 'Your patient '.$patient['patient_display_name']." on ".$room->room_name.", ";
+        $message .= 'dextrose level is '.$details['dex'].'%, ';
+        $message .= 'temperature is '.$details['temp'].'°C, ';
+        $message .= 'and pulse is '.$details['pulse'].' BMP.';
+        return $message;
     }
 }

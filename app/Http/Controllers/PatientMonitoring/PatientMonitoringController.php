@@ -629,6 +629,7 @@ class PatientMonitoringController extends Patient
         $update['bed_key']      = 'no_bed';
         $update['doctor_id']    = 0;
         Tbl_patient::where('patient_id',$id)->update($update);
+        Tbl_logs::where('patient_id',$id)->delete();
     }
     public function getModifyPatient()
     {

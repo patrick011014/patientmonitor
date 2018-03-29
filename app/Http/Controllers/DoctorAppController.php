@@ -10,6 +10,7 @@ use App\Models\Tbl_doctors;
 use App\Models\Tbl_patient;
 use App\Models\Tbl_logs;
 use App\Models\Tbl_rooms;
+use App\Models\Tbl_notification;
 use App\Models\Tbl_activation_codes;
 
 class DoctorAppController extends Controller
@@ -183,5 +184,23 @@ class DoctorAppController extends Controller
     		}
     	}
     	return json_encode($patients);
+    }
+    public function getMarkAsNotified()
+    {
+    	$doctor_id 		= request('doctor_id');
+    	$patient_id 	= request('patient_id');
+    	$update['notified'] = 1;
+    	Tbl_notification::where('doctor_id',$doctor_id)->where('notification_id',$patient_id)->update($update);		
+    }
+    public function getNotifications()
+    {
+    	$id = request('id');
+    	$query = Tbl_notification::where('doctor_id',$id)->where('notified',0)->get();
+    	foreach($query as $key => $value)
+    	{
+    		$room = Tbl_rooms::where('room_id',$value->room_id)->first();
+    		$query[$key]->room_name = $room->room_name;
+    	}
+    	return json_encode($query);
     }
 }
