@@ -182,6 +182,7 @@ return [
 
         // Third parties
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Nexmo\Laravel\NexmoServiceProvider::class,
 
     ],
 
@@ -236,6 +237,7 @@ return [
 
         // third parties
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
 
     ],
 

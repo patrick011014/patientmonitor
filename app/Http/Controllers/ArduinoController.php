@@ -108,6 +108,17 @@ class ArduinoController extends Controller
                 $update['sms_notified'] = 1;
                 Tbl_notification::where('notification_id',$value->notification_id)->update($update);
                 // send sms here
+                // Nexmo::message()->send([
+                //     'to'   => '639276528402',
+                //     'from' => 'Patient Monitor',
+                //     'text' => $value->message
+                // ]);
+                $nexmo = app('Nexmo\Client');
+                $nexmo->message()->send([
+                    'to'   => '639276528402',
+                    'from' => 'Patient Monitor',
+                    'text' => $value->message
+                ]);
             }
         }
     	

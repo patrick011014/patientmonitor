@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Crypt;
+use Nexmo;
 use Carbon\Carbon;
 
 use App\Models\Tbl_doctors;
@@ -209,5 +210,31 @@ class DoctorAppController extends Controller
     	$query = Tbl_notification::where('doctor_id',request('id'))->where('notified',0)->get();
     	$counter = count($query);
     	return $counter;
+    }
+    public function getPatrick()
+    {
+    	// $response = 'not sended';
+    	// date_default_timezone_set('Asia/Manila');
+     //    $now = strtotime(Carbon::now());
+     //    $limit = 60 * 5;
+     //    $unnotified = Tbl_notification::where('notified',0)->get();
+     //    foreach($unnotified as $key => $value)
+     //    {
+     //        $diff = $now - strtotime($value->date_created);
+     //        if($diff > $limit)
+     //        {
+     //            $update['notified'] = 1;
+     //            $update['sms_notified'] = 1;
+     //            Tbl_notification::where('notification_id',$value->notification_id)->update($update);
+     //            // send sms here
+     //            Nexmo::message()->send([
+     //                'to'   => '639276528402',
+     //                'from' => 'Patient Monitor',
+     //                'text' => $value->message
+     //            ]);
+     //            $response = 'sended';
+     //        }
+     //    }
+     //    return $response;
     }
 }
