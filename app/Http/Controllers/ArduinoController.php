@@ -93,6 +93,23 @@ class ArduinoController extends Controller
                 }
             }
         }
+
+        // check if there is a unread notification with greater than 5 mins unnoticed
+        date_default_timezone_set('Asia/Manila');
+        $now = strtotime(Carbon::now());
+        $limit = 60 * 5;
+        $unnotified = Tbl_notification::where('notified',0)->get();
+        foreach($unnotified as $key => $value)
+        {
+            $diff = $now - strtotime($value->date_created);
+            if($diff > $limit)
+            {
+                $update['notified'] = 1;
+                $update['sms_notified'] = 1;
+                Tbl_notification::where('notification_id',$value->notification_id)->update($update);
+                // send sms here
+            }
+        }
     	
 
     	return view('patient.arduino',$data);
@@ -161,7 +178,7 @@ class ArduinoController extends Controller
         $patient = Tbl_patient::where('patient_id',$details['patient_id'])->first();
         $room = Tbl_rooms::where('room_id',$patient->room_id)->first();
         $message = '';
-// your patient patrick manarang, dextrose level is 100%, temperature is 35°C, and pulse is 60 BMP
+// your patient patrick manarang on Room 201, dextrose level is 100%, temperature is 35°C, and pulse is 60 BMP
         $message .= 'Your patient '.$patient['patient_display_name']." on ".$room->room_name.", ";
         $message .= 'dextrose level is '.$details['dex'].'%, ';
         $message .= 'temperature is '.$details['temp'].'°C, ';

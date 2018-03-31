@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Crypt;
+use Carbon\Carbon;
 
 use App\Models\Tbl_doctors;
 use App\Models\Tbl_patient;
@@ -202,5 +203,11 @@ class DoctorAppController extends Controller
     		$query[$key]->room_name = $room->room_name;
     	}
     	return json_encode($query);
+    }
+    public function getCountNotifications()
+    {
+    	$query = Tbl_notification::where('doctor_id',request('id'))->where('notified',0)->get();
+    	$counter = count($query);
+    	return $counter;
     }
 }
