@@ -7,6 +7,7 @@ String key = "A03"; // unique key for every arduino
 long load = 0;
 int temp = 0;
 int tempPin = 1;
+int assistancePin = 4;
 
 // pulse sensor variables
 //  Variables
@@ -50,6 +51,8 @@ void loop() {
   getTemp();
   Serial.print("/");
   getPulse();
+  Serial.print("/");
+  getAssistance();
   Serial.println("/");
   delay(1000);
   
@@ -107,7 +110,17 @@ void serialOutputWhenBeatHappens()
      sendDataToSerial('Q',IBI);   // send time between beats with a 'Q' prefix
    }   
 }
-
+void getAssistance()
+{
+  if(digitalRead(assistancePin) == HIGH)
+  {
+    Serial.print("1");
+  }
+  else
+  {
+    Serial.print("0");
+  }
+}
 
 void sendDataToSerial(char symbol, int data )
 {
