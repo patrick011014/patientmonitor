@@ -113,12 +113,16 @@ class ArduinoController extends Controller
                 //     'from' => 'Patient Monitor',
                 //     'text' => $value->message
                 // ]);
-                $nexmo = app('Nexmo\Client');
-                $nexmo->message()->send([
-                    'to'   => '639276528402',
-                    'from' => 'Patient Monitor',
-                    'text' => $value->message
-                ]);
+                $doctor = Tbl_doctors::where('doctor_id',$value->doctor_id)->first();
+                if($doctor)
+                {
+                    $nexmo = app('Nexmo\Client');
+                    $nexmo->message()->send([
+                        'to'   => $doctor->contact_number,
+                        'from' => 'Patient Monitor',
+                        'text' => $value->message
+                    ]);
+                }
             }
         }
     	
