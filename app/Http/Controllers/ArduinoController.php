@@ -188,12 +188,48 @@ class ArduinoController extends Controller
     {
         $patient = Tbl_patient::where('patient_id',$details['patient_id'])->first();
         $room = Tbl_rooms::where('room_id',$patient->room_id)->first();
+
+        if($details['dex'] > 120 || $details['dex'] == '')
+        {
+            $rephrase['dex'] = "Disconnected";
+        }
+        else if($details['dex'] <=120 && $details['dex'] >=100)
+        {
+            $rephrase['dex'] = "100%";
+        }
+        else if($details['dex'] < 0)
+        {
+            $rephrase['dex'] = "0%";
+        }
+        else
+        {
+            $rephrase['dex'] = $details['dex']."%";;
+        }
+        // temp
+        if($details['pulse'] > 100 || $details['pulse'] == '')
+        {
+            $rephrase['temp'] = "Disconnected";
+        }
+        else
+        {
+            $rephrase['temp'] = $details['pulse']."°C";
+        }
+        // pulse
+        if($details['pulse'] == '' || $details['pulse'] == 'Disconnected')
+        {
+            $rephrase['pulse'] = "Disconnected";
+        }
+        else
+        {
+            $rephrase['pulse'] = $details['pulse']." BPM";
+        }
+
         $message = '';
 // your patient patrick manarang on Room 201, dextrose level is 100%, temperature is 35°C, and pulse is 60 BMP
         $message .= 'Your patient '.$patient['patient_display_name']." on ".$room->room_name.", ";
-        $message .= 'dextrose level is '.$details['dex'].'%, ';
-        $message .= 'temperature is '.$details['temp'].'°C, ';
-        $message .= 'and pulse is '.$details['pulse'].' BMP.';
+        $message .= 'dextrose level is '.$rephrase['dex'].', ';
+        $message .= 'temperature is '.$rephrase['temp'].', ';
+        $message .= 'and pulse is '.$rephrase['pulse'].'.';
         return $message;
     }
 }
