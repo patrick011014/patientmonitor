@@ -72,7 +72,7 @@
 
             if(x > 20)
             {
-                toastr.error("Max of 10 beds per ward");
+                toastr.error("Max of 20 beds per ward");
             }
             else if($.isNumeric(x))
             {

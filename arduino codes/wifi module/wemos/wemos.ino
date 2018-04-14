@@ -2,12 +2,12 @@
 #include <ESP8266HTTPClient.h>
 
 // Wifi module credentials
-const char* ssid = "PLDTHOMEFIBR06348";
-const char* password = "PLDTWIFISfx1x";
-String ip = "192.168.1.5";
-//const char* ssid = "81d6b1";
-//const char* password = "241529861";
-//String ip = "192.168.0.14";
+//const char* ssid = "PLDTHOMEFIBR06348";
+//const char* password = "PLDTWIFISfx1x";
+//String ip = "192.168.8.106";
+const char* ssid = "Phoenix Axl";
+const char* password = "Wastedmofo";
+String ip = "192.168.254.100";
 
 // Holds data from arduino
 char command;

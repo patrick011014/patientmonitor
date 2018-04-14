@@ -97,7 +97,7 @@ class ArduinoController extends Controller
         // check if there is a unread notification with greater than 5 mins unnoticed
         date_default_timezone_set('Asia/Manila');
         $now = strtotime(Carbon::now());
-        $limit = 60 * 5;
+        $limit = 60 * 3;
         $unnotified = Tbl_notification::where('notified',0)->get();
         foreach($unnotified as $key => $value)
         {
@@ -107,22 +107,19 @@ class ArduinoController extends Controller
                 $update['notified'] = 1;
                 $update['sms_notified'] = 1;
                 Tbl_notification::where('notification_id',$value->notification_id)->update($update);
-                // send sms here
-                // Nexmo::message()->send([
-                //     'to'   => '639276528402',
-                //     'from' => 'Patient Monitor',
-                //     'text' => $value->message
-                // ]);
-                $doctor = Tbl_doctors::where('doctor_id',$value->doctor_id)->first();
-                if($doctor)
-                {
-                    $nexmo = app('Nexmo\Client');
-                    $nexmo->message()->send([
-                        'to'   => $doctor->contact_number,
-                        'from' => 'Patient Monitor',
-                        'text' => $value->message
-                    ]);
-                }
+                
+                // uncomment to enable sms gateway
+                // $doctor = Tbl_doctors::where('doctor_id',$value->doctor_id)->first();
+                // if($doctor)
+                // {
+                //     $nexmo = app('Nexmo\Client');
+                //     $nexmo->message()->send([
+                //         'to'   => $doctor->contact_number,
+                //         'from' => 'Patient Monitor',
+                //         'text' => $value->message
+                //     ]);
+                // }
+                // until here
             }
         }
     	
