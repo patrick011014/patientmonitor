@@ -1,4 +1,4 @@
-<form class="global-submit form-horizontal" role="form" action="/member/add-room" method="post">
+<form class="global-submit form-horizontal" role="form" method="post">
     {{csrf_field()}}
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
@@ -43,6 +43,10 @@
     {
         toastr.error("Invalid Room Capacity");
     }
+    function notificationSent(data)
+    {
+        toastr.success('Notification sent');
+    }
 </script>
 <script type="text/javascript">
     var x = null;
@@ -73,3 +77,5 @@
         }
     }
 </script>
+
+{{-- sending notification --}}

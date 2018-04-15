@@ -17,6 +17,7 @@ use App\Models\Tbl_patient;
 use App\Models\Tbl_logs;
 use App\Models\Tbl_doctors;
 use App\Models\Tbl_activation_codes;
+use App\Models\Tbl_notification;
 
 use Illuminate\Http\Request;
 
@@ -154,6 +155,88 @@ class PatientMonitoringController extends Patient
 
         // dd($patient);
         return view('modals.dashboard.show_details',$data);
+    }
+    public function getSendNotification()
+    {
+        $patient        = Tbl_patient::where('patient_id',request('id'))->first();
+
+        $log = Tbl_logs::where('patient_id',request('id'))->where('arduino_key',$patient->bed_key)->first();
+        $details['dex']         = $log->dex;
+        $details['temp']        = $log->temp;
+        $details['pulse']       = $log->pulse;
+        $details['patient_id']  = $patient->patient_id;
+
+        $active_notif   = count(Tbl_notification::where('patient_id',request('id'))->where('doctor_id',$patient->doctor_id)->where('notified',0)->get());
+        if($active_notif < 1)
+        {
+            date_default_timezone_set('Asia/Manila');
+            $insert_notif['patient_id']     = request('id');
+            $insert_notif['doctor_id']      = $patient->doctor_id;
+            $insert_notif['message']        = $this->notificationGenerator($details);
+            $insert_notif['room_id']        = $patient->room_id;
+            $insert_notif['date_created']   = Carbon::now();
+            Tbl_notification::insert($insert_notif);
+        }
+        $doctor = Tbl_doctors::where('doctor_id',$patient->doctor_id)->first()->display_name;
+        return "Dr.".$doctor;
+    }
+    function notificationGenerator($details)
+    {
+        $patient = Tbl_patient::where('patient_id',$details['patient_id'])->first();
+        $room = Tbl_rooms::where('room_id',$patient->room_id)->first();
+
+        if($details['dex'] > 120 || $details['dex'] == '')
+        {
+            $rephrase['dex'] = "Disconnected";
+        }
+        else if($details['dex'] <=120 && $details['dex'] >=100)
+        {
+            $rephrase['dex'] = "100%";
+        }
+        else if($details['dex'] < 0)
+        {
+            $rephrase['dex'] = "0%";
+        }
+        else
+        {
+            $rephrase['dex'] = $details['dex']."%";;
+        }
+        // temp
+        if($details['pulse'] > 100 || $details['pulse'] == '')
+        {
+            $rephrase['temp'] = "Disconnected";
+        }
+        else
+        {
+            $rephrase['temp'] = $details['pulse']."°C";
+        }
+        // pulse
+        if($details['pulse'] == '' || $details['pulse'] == 'Disconnected')
+        {
+            $rephrase['pulse'] = "Disconnected";
+        }
+        else
+        {
+            $rephrase['pulse'] = $details['pulse']." BPM";
+        }
+
+        $sensors = explode('/', $patient->sensors);
+        $message = '';
+// your patient patrick manarang on Room 201, dextrose level is 100%, temperature is 35°C, and pulse is 60 BMP
+        $message .= 'Your patient '.$patient['patient_display_name']." on ".$room->room_name.", ";
+        if(in_array(1, $sensors))
+        {
+            $message .= 'dextrose level is '.$rephrase['dex'].', ';
+        }
+        if(in_array(2, $sensors))
+        {
+            $message .= 'temperature is '.$rephrase['temp'].', ';
+        }
+        if(in_array(3, $sensors))
+        {
+            $message .= 'and pulse is '.$rephrase['pulse'].'.';
+        }
+        return $message;
     }
     public function getPatientDetails()
     {

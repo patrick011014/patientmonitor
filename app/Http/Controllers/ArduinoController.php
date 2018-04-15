@@ -77,26 +77,26 @@ class ArduinoController extends Controller
         }
 
         // notification generator
-        if(isset($insert))
-        {
-            if($insert['status'] == 'emergency')
-            {
-                $patient        = Tbl_patient::where('patient_id',$insert['patient_id'])->first();
-                $active_notif   = count(Tbl_notification::where('patient_id',$insert['patient_id'])->where('doctor_id',$patient->doctor_id)->where('notified',0)->get());
-                if($active_notif < 1)
-                {
-                    date_default_timezone_set('Asia/Manila');
-                    $insert_notif['patient_id']     = $insert['patient_id'];
-                    $insert_notif['doctor_id']      = $patient->doctor_id;
-                    $insert_notif['message']        = $this->notificationGenerator($insert);
-                    $insert_notif['room_id']        = $patient->room_id;
-                    $insert_notif['date_created']   = Carbon::now();
-                    Tbl_notification::insert($insert_notif);
-                }
-            }
-        }
+        // if(isset($insert))
+        // {
+        //     if($insert['status'] == 'emergency')
+        //     {
+        //         $patient        = Tbl_patient::where('patient_id',$insert['patient_id'])->first();
+        //         $active_notif   = count(Tbl_notification::where('patient_id',$insert['patient_id'])->where('doctor_id',$patient->doctor_id)->where('notified',0)->get());
+        //         if($active_notif < 1)
+        //         {
+        //             date_default_timezone_set('Asia/Manila');
+        //             $insert_notif['patient_id']     = $insert['patient_id'];
+        //             $insert_notif['doctor_id']      = $patient->doctor_id;
+        //             $insert_notif['message']        = $this->notificationGenerator($insert);
+        //             $insert_notif['room_id']        = $patient->room_id;
+        //             $insert_notif['date_created']   = Carbon::now();
+        //             Tbl_notification::insert($insert_notif);
+        //         }
+        //     }
+        // }
 
-        // check if there is a unread notification with greater than 5 mins unnoticed
+        // check if there is a unread notification with greater than 3 mins unnoticed
         date_default_timezone_set('Asia/Manila');
         $now = strtotime(Carbon::now());
         $limit = 60 * 3;

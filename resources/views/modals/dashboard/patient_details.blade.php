@@ -30,6 +30,11 @@
         {{-- <label>Pulse:</label> --}}
         <label for="basic-input" >{!! $value->date_created !!}</label>
     </div>
+
+    <div class="col-md-12">
+        <button class="btn btn-primary btn-custom-primary notify-doctor" id="{{ $value->patient_id }}" type="button">Notify Doctor</button>
+    </div>
+
 </div> 
 @endforeach
 <div class="pull-right">

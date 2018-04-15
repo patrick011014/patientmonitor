@@ -113,4 +113,24 @@
     },2000);
   });
 </script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+
+        $('body').on('click','.notify-doctor',function(e)
+        {
+            var id = $(e.currentTarget).attr('id');
+            $.ajax(
+            {
+                url: "/member/send-notification",
+                type: 'get',
+                data: "id="+id,
+                success: function(data)
+                {
+                    toastr.success('Notification sent to '+data);
+                }
+            });
+        });
+    });
+</script>
 @endsection
