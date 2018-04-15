@@ -23,6 +23,25 @@
     <div class="row clearfix">
       <div class="col-md-6" style="text-align: left;">
          <h4><b>{{$page}}</b></h4>
+
+          <center>
+          <div class="col-md-2">
+            <button class="btn btn-default"> <i class="fa fa-building"></i> </button> <br> Unoccupied
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-info"> <i class="fa fa-building"></i> </button> <br> Disconnected
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary"> <i class="fa fa-building"></i> </button> <br> Normal
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-warning"> <i class="fa fa-building"></i> </button> <br> Assistance
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-danger"> <i class="fa fa-building"></i> </button> <br> Emergency
+          </div>
+          </center>
+
       </div>
       <div class="col-md-6">
         
@@ -79,6 +98,9 @@
 
   </div>
 </div>
+@endsection
+@section('css')
+<link rel="stylesheet" type="text/css" href="/assets/front/pretty-checkbox.min.css">
 @endsection
 @section('scripts')
 <script type="text/javascript" src="/assets/member/dashboard.js"></script>

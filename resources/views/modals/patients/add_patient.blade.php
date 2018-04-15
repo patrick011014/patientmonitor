@@ -40,6 +40,28 @@
             </div>
         </div>
 
+        <div class="pretty p-icon p-tada">
+            <input type="checkbox" class="form-control" name="dex" checked />
+            <div class="state p-primary-o">
+                <i class="icon fa fa-check"></i>
+                <label>Dextrose</label>
+            </div>
+        </div>
+        <div class="pretty p-icon p-tada">
+            <input type="checkbox" class="form-control" name="temp" checked />
+            <div class="state p-primary-o">
+                <i class="icon fa fa-check"></i>
+                <label>Temperature</label>
+            </div>
+        </div>
+        <div class="pretty p-icon p-tada">
+            <input type="checkbox" class="form-control" name="pulse" checked />
+            <div class="state p-primary-o">
+                <i class="icon fa fa-check"></i>
+                <label>Pulse</label>
+            </div>
+        </div>
+
 
 
     </div>

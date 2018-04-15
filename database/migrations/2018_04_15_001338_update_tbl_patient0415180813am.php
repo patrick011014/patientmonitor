@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTblRooms extends Migration
+class UpdateTblPatient0415180813am extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateTblRooms extends Migration
      */
     public function up()
     {
-        Schema::table('tbl_rooms', function (Blueprint $table) {
-            // $table->integer('archived');
+        Schema::table('tbl_patient', function (Blueprint $table) {
+            $table->string('sensors')->default(null);
         });
     }
 
@@ -25,7 +25,7 @@ class UpdateTblRooms extends Migration
      */
     public function down()
     {
-        Schema::table('tbl_rooms', function (Blueprint $table) {
+        Schema::table('tbl_patient', function (Blueprint $table) {
             //
         });
     }

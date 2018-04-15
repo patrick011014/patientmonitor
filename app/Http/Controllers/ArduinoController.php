@@ -68,6 +68,7 @@ class ArduinoController extends Controller
                 }
                 // dd($insert);
                 $data['response'] = $insert['status'];
+                // $data['response'] = $explode[3];
             }
             else
             {
@@ -75,6 +76,7 @@ class ArduinoController extends Controller
             }
         }
 
+        // notification generator
         if(isset($insert))
         {
             if($insert['status'] == 'emergency')
@@ -133,6 +135,8 @@ class ArduinoController extends Controller
     	$insert['patient_id'] = $patient->patient_id;
     	$insert['status'] = 'normal';
 
+        $active_sensors = explode('/', $patient->sensors);
+
     	$arr = array('arduino_key','dex','temp','pulse');
 
     	foreach($arr as $key => $value)
@@ -164,20 +168,30 @@ class ArduinoController extends Controller
     		$status = 'assistance';
     	}
     	// dex
-    	if($explode[1] < 30)
-    	{
-    		$status = 'emergency';
-    	}
+    	if(in_array(1, $active_sensors))
+        {
+            if($explode[1] < 30)
+            {
+                $status = 'emergency';
+            }
+        }
     	// temp
-    	if($explode[2] > 38)
-    	{
-    		$status = 'emergency';
-    	}
+        if(in_array(2, $active_sensors))
+        {
+            if($explode[2] > 38)
+            {
+                $status = 'emergency';
+            }
+        }
     	// pulse
-    	if($explode[3] > 81 && $explode[3] <49)
-    	{
-    		$status = 'emergency';
-    	}
+        if(in_array(3, $active_sensors))
+        {
+            if($explode[3] > 100 || $explode[3] < 40)
+            {
+                $status = 'emergency';
+            }
+        }
+    	
 
     	$insert['status'] = $status;
         date_default_timezone_set('Asia/Manila');

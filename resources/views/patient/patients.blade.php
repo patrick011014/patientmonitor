@@ -76,6 +76,9 @@
   </div>
 </div>
 @endsection
+@section('css')
+<link rel="stylesheet" type="text/css" href="/assets/front/pretty-checkbox.min.css">
+@endsection
 @section('scripts')
 <script type="text/javascript" src="/assets/member/patients.js"></script>
 @endsection

@@ -146,11 +146,13 @@ class PatientMonitoringController extends Patient
             {
                 $patient[$key]->display_pulse = $value->pulse." BPM";
             }
+
         }
 
 
         $data['patient'] = $patient;
 
+        // dd($patient);
         return view('modals.dashboard.show_details',$data);
     }
     public function getPatientDetails()
@@ -199,7 +201,40 @@ class PatientMonitoringController extends Patient
             {
                 $patient[$key]->display_pulse = $value->pulse." BPM";
             }
+
+            // active sensors
+            $sensors = explode('/', $value->sensors);
+            //dex
+            if(in_array(1, $sensors))
+            {
+                $patient[$key]->active_dex = '1';
+            }
+            else
+            {
+                $patient[$key]->active_dex = '0';
+            }
+            //temp
+            if(in_array(2, $sensors))
+            {
+                $patient[$key]->active_temp = '1';
+            }
+            else
+            {
+                $patient[$key]->active_temp = '0';
+            }
+            //pulse
+            if(in_array(3, $sensors))
+            {
+                $patient[$key]->active_pulse = '1';
+            }
+            else
+            {
+                $patient[$key]->active_pulse = '0';
+            }
+            // end active sensors
+
         }
+
 
 
         $data['patient'] = $patient;
@@ -588,6 +623,21 @@ class PatientMonitoringController extends Patient
         $insert['status']                   = 'pending';
         $insert['patient_display_name']     = $request->first_name." ".$request->last_name;
         $insert['doctor_id']                = $request->doctor_id;
+        $insert['sensors']                  = "";
+        if($request->dex)
+        {
+            $insert['sensors'] .= "1/";
+        }
+        if($request->temp)
+        {
+            $insert['sensors'] .= "2/";
+        }
+        if($request->pulse)
+        {
+            $insert['sensors'] .= "3/";
+        }
+
+        // dd($insert['sensors']);
 
         if($request->sickness == '')
         {
@@ -636,6 +686,27 @@ class PatientMonitoringController extends Patient
         $data['page']       = 'Modify Patient';
         $data['row']        = Tbl_patient::where('patient_id',request('id'))->first();
         $data['doctors']    = Tbl_doctors::where('archived',0)->get();
+
+        $sensors = explode('/', $data['row']->sensors);
+        $data['dex']    = '';
+        $data['temp']   = '';
+        $data['pulse']  = '';
+        foreach ($sensors as $key => $value)
+        {
+            switch ($value)
+            {
+                case 1:
+                    $data['dex']    = 'on';
+                    break;
+                case 2:
+                    $data['temp']   = 'on';
+                    break;
+                case 3:
+                    $data['pulse']  = 'on';
+                    break;
+            }
+        }
+
         return view('modals.patients.modify_patient',$data);
     }
     public function postModifyPatient(Request $request)
@@ -645,6 +716,19 @@ class PatientMonitoringController extends Patient
         $update['middle_name']  = $request->middle_name;
         $update['sickness']     = $request->sickness;
         $update['doctor_id']    = $request->doctor_id;
+        $update['sensors']      = "";
+        if($request->dex)
+        {
+            $update['sensors'] .= "1/";
+        }
+        if($request->temp)
+        {
+            $update['sensors'] .= "2/";
+        }
+        if($request->pulse)
+        {
+            $update['sensors'] .= "3/";
+        }
 
         $rules['first_name'] = 'required';
         $rules['last_name'] = 'required';

@@ -21,16 +21,16 @@ class UserLoginController extends Controller
     	$data['page'] = "Login";
         // dd(Crypt::decrypt("eyJpdiI6IlNxOGNERzZMWUtGd3pHd3ZYaUFYSWc9PSIsInZhbHVlIjoiY1F6RWtocVlRRUlPYWZZdFpETXVEZz09IiwibWFjIjoiYzg5YmY0Yzk5ODM2ZWM4YWUzNjBiYmNmMDZmZWMxYmIxN2VkMGRhZjAwNzIwMzMyY2M4MWNlYWU1NGM5MjAxYSJ9"));
 
-    	// $insert['first_name'] = "ruffa";
-    	// $insert['middle_name'] = "ayonon";
-    	// $insert['last_name'] = "arsenio";
+    	// $insert['first_name'] = "patrick";
+    	// $insert['middle_name'] = "ramos";
+    	// $insert['last_name'] = "manarang";
     	// $insert['username'] = "";
-    	// $insert['password'] = Crypt::encrypt('12345');
-     //    $insert['contact_number'] = '09982172883';
+    	// $insert['password'] = Crypt::encrypt('123');
+        //  $insert['contact_number'] = '639276528402';
 
     	// $user_id = Tbl_user::insertGetId($insert);
 
-    	// $update['username'] = $this->generateUsername('ruffa','arsenio',$user_id);
+    	// $update['username'] = $this->generateUsername('patrick','manarang',$user_id);
     	// Tbl_user::where('user_id',$user_id)->update($update);
 
     	return view('login.userlogin',$data);
